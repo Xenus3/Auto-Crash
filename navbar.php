@@ -13,6 +13,7 @@
     <?php 
     }else{
     ?>
+     <li><a href="profil.php">Profil</a></li>
      <li><a href="deconnexion.php">Déconnexion</a></li>
     <?php 
     }
