@@ -9,15 +9,16 @@ h1 {
     padding: 25px 0;
 }
 
-form {
-    width : 40%;
+.form {
+    width : 20%;
     height: 300px;
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     justify-items: center;
-   
+    
+    
 }
 
 input {

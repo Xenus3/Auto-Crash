@@ -2,7 +2,7 @@
 
 class connexionDB {
     private $hote = 'localhost';
-    private $nom = 'alpha';
+    private $nom = 'auto-crash';
     private $utilisateur = 'root';
     private $mdp = 'root';
     private $connexion;
