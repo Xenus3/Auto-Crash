@@ -1,20 +1,27 @@
 <?php
 
-include('_db/connexionDB.php');
+require_once('inclure.php');
 
-$requete = 'select * from chantiers';
-$data = $DB->query($requete);
+if(isset($_SESSION['id'])) {
+    $saluer = "Bonjour " . $_SESSION['nom'];
+}else{
+    $saluer = "Bonjour Etranger";
+}
 
 
 
-
-while($donneé = $data->fetch()) 
-{
 ?>
-
-
-<li><?=$donneé["Ville"]?></li>
-
-<?php
-}  
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+ <?php  include ('navbar.php') ?>
+    <h1><?= $saluer ?></h1>
+</body>
+</html>
 

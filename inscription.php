@@ -1,6 +1,13 @@
 <?php
 
-include ('_db/connexionDB.php');
+require_once('inclure.php');
+
+if(isset($_SERVER['id_utilisateur'])) {
+    header('location: index.php');
+    exit;
+}
+
+
 
 // Fonction pour securiser les zones de saisie
 
@@ -119,6 +126,7 @@ if(!empty($_POST)) {
     <title>Inscription</title>
 </head>
 <body>
+<?php  include ('navbar.php') ?>
     <div class="form">
         <h1>Inscription Auto Crash</h1>
         <form action="" method="POST">
