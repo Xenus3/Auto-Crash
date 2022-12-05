@@ -60,21 +60,30 @@ if (isset($_SESSION['id'])){
                 $connect->execute(array($email));
                 $connect_util = $connect->fetch();
 
-                if(isset($connect_util['id_utilisateur'])) {
+                if(isset($connect_util['id_utilisateur'])) { 
 
                     $_SESSION['id'] = $connect_util['id_utilisateur'];
                     $_SESSION['email'] = $connect_util['email'];
                     $_SESSION['nom'] = $connect_util['nom'];
                     $_SESSION['prenom'] = $connect_util['prenom'];
                     $_SESSION['role'] = $connect_util['id_role'];
+                    $_SESSION['telephone'] = $connect_util['telephone'];
+                    //$_SESSION['mdp'] = $connect_util['mot_de_passe'];
 
                 }else {
                     $valide = false;
                     $message_erreur = "";
                 }
+
+                header('location: index.php');
+
+                exit;
             }
         }
     }
+
+    
+    
 
 ?>
 <!DOCTYPE html>

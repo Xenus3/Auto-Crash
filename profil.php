@@ -13,6 +13,18 @@ $requete->execute(array($_SESSION['id']));
 
 $requete_utilisateur = $requete->fetch();
 
+switch($requete_utilisateur['id_role']) {
+    case 1 :
+    $requete_utilisateur['id_role'] = 'Super Admin';
+    break;
+    case 2 :
+    $requete_utilisateur['id_role'] = 'Admin';
+    break;
+    case 3 :
+    $requete_utilisateur['id_role'] = 'Utilisateur';
+    break;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,9 +35,15 @@ $requete_utilisateur = $requete->fetch();
     <title>Profile</title>
 </head>
 <body>
+
+    <?php  include ('navbar.php') ?>
+
     <h1>Profile de <?= $requete_utilisateur['nom'] ?></h1>
-    <div>Email: <?= $requete_utilisateur['email'] ?> <span><a href="">Modifier</a></span></div>
-    <div>Telephone: <?= $requete_utilisateur['telephone'] ?> <span><a href="">Modifier</a></span></div>
-    <div><a href="">Changer mot de passe</a></div>
+    <div>Email: <?= $requete_utilisateur['email'] ?></div>
+    <div>Telephone: <?= $requete_utilisateur['telephone'] ?></div>
+    <div>Role: <?= $requete_utilisateur['id_role'] ?></div>
+    <div><a href="modifier_profil.php">Modifier Mon Profile</a></div>
+    <div><a href="modifier_MDP.php">Modifier Mon Mot de Passe</a></div>
+
 </body>
 </html>
