@@ -33,5 +33,8 @@ if($valid){
 		$requete->execute(array(date('Y-m-d H:i:s'), $req['id_utilisateur']));
  
 	 $info_mess = "Votre compte a bien été validé";
+
+	 header('location: connexion.php');
+	 exit;
 	}
 }

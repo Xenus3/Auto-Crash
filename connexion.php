@@ -54,6 +54,8 @@ if (isset($_SESSION['id'])){
                 }
             }
 
+            // Creer la session
+
             if($valide) {
 
                 $connect = $DB->prepare('SELECT * FROM utilisateurs WHERE email=?');
@@ -96,7 +98,7 @@ if (isset($_SESSION['id'])){
 </head>
 <body>
 
-<?php  include ('navbar.php') ?>
+    <?php  include ('navbar.php') ?>
 
     <div>Page de connexion</div>
 
@@ -107,6 +109,8 @@ if (isset($_SESSION['id'])){
         <input type="password" name="mdp">
         <input type="submit" value="Se Connecter" name="connexion">
     </form>
+
+    <a href="mdp_oublie.php">Mot de passe oublié</a>
     
 </body>
 </html>

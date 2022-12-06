@@ -2,6 +2,15 @@
 
 require_once('inclure.php');
 
+function securiser($donnee) {
+
+    $donnee = trim($donnee);
+    $donnee = htmlspecialchars($donnee);
+    $donnee = stripslashes($donnee);
+
+    return $donnee;
+}
+
 if (!isset($_SESSION['id'])){
     header('Location: index.php');
     exit;
@@ -13,25 +22,50 @@ if (!isset($_SESSION['id'])){
 
     $info_user = $info->fetch();
 
-   
+    if(!empty($_POST)) {
 
-    if((isset($_POST['email']) and $_POST['email'] <> $_SESSION['email']) or (isset($_POST['telephone']) and $_POST['telephone'] <> $_SESSION['telephone'])) {
+        extract($_POST);
 
-    $requete = $DB->prepare('UPDATE utilisateurs SET email = ?, telephone = ? WHERE id_utilisateur = ?');
+        $valide = true;
 
-    $requete->execute(array($_POST['email'], $_POST['telephone'], $_SESSION['id']));
+        if(isset($_POST['modifier'])) {
+            $email = securiser($email);
+            $telephone = securiser($telephone);
 
- 
+            if(!isset($email)) {
+                $valide = false;
+                $message_erreur = "Ce champ ne peut etre vide";
+            }elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+                $valide = false;
+                $message_erreur = "Vueiller renseigner un email qui est valide";
+            }else{
+                $requete = $DB->prepare('SELECT id_utilisateur from utilisateurs where email=?');
 
-    header('location: profil.php');
+                $requete->execute(array($email));
 
-    exit;
+                $requete = $requete->fetch();
 
-} else{
+                if(isset($requete['id'])) {
+                    $valide = false;
+                    $message_erreur = "Ce mail est lié a un autre compte";
+                }
+            }
 
-}
+            if($valide) {
+
+                $requete = $DB->prepare('UPDATE utilisateurs SET email = ?, telephone = ? WHERE id_utilisateur = ?');
+
+                $requete->execute(array($email, $telephone, $_SESSION['id']));
+
+                header('location: profil.php');
+
+                exit;
+            }
+        }
+    }
 
 
+// pour afficher les donneés de la base de donneés dans les zones de saisie
 
 if(isset($info_user['email']) or isset($info_user['telephone']))
 {$email = $info_user['email'];
