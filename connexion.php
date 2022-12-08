@@ -2,6 +2,8 @@
 
 
 require_once('inclure.php');
+require_once('fonctions/mot_de_passe.php');
+
 
 
 function securiser($donnee) {
@@ -28,6 +30,8 @@ if (isset($_SESSION['id'])){
         if(isset($_POST["connexion"])) {
             $email = securiser($email);
             $mdp = securiser($mdp);
+            
+                
 
             if(empty($email) or empty($mdp)) {
                 $valide = false;
@@ -70,11 +74,21 @@ if (isset($_SESSION['id'])){
                     $_SESSION['prenom'] = $connect_util['prenom'];
                     $_SESSION['role'] = $connect_util['id_role'];
                     $_SESSION['telephone'] = $connect_util['telephone'];
-                    //$_SESSION['mdp'] = $connect_util['mot_de_passe'];
+                    $_SESSION['mdp'] = $connect_util['mot_de_passe'];
 
                 }else {
                     $valide = false;
                     $message_erreur = "";
+                }
+
+                
+                
+               if(isset($souvient_toi)){
+                    setcookie("comail", urlencode($_SESSION['email']), time()+60, "/");
+                    setcookie("comdp", encrypter($mdp), time()+60, "/");
+                }else{
+                    setcookie("comail", null, -1, "/");
+                    setcookie("comdp", null, -1, "/");
                 }
 
                 header('location: index.php');
@@ -82,6 +96,8 @@ if (isset($_SESSION['id'])){
                 exit;
             }
         }
+
+        
     }
 
     
@@ -95,22 +111,37 @@ if (isset($_SESSION['id'])){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connexion</title>
+    
 </head>
 <body>
 
     <?php  include ('navbar.php') ?>
 
     <div>Page de connexion</div>
+   
 
     <form action="" method="post">
         <label for="email">Votre Email:</label>
-        <input type="text" name="email">
+        <input type="email" name="email" value="<?php if(isset($_COOKIE['comail'])) {echo urldecode($_COOKIE['comail']);} ?>">
         <label for="mdp">Votre mot de passe:</label>
-        <input type="password" name="mdp">
+        <input type="password" name="mdp" value=<?php if(isset($_COOKIE['comdp'])) {echo decrypter($_COOKIE['comdp']);} ?>>
+        
+       
         <input type="submit" value="Se Connecter" name="connexion">
+
+        <div>
+            <label for="souvient_toi">
+                <input type="checkbox" name="souvient_toi"  <?php if(isset($_COOKIE['comdp']) && ($_COOKIE['comdp'] != "")){echo "checked";} ?>  >
+                Souvient toi
+            </label>
+            
+        </div>
+
     </form>
 
     <a href="mdp_oublie.php">Mot de passe oublié</a>
+
+  
     
 </body>
 </html>
