@@ -36,14 +36,16 @@ switch($requete_utilisateur['id_role']) {
 </head>
 <body>
 
-    <?php  include ('navbar.php') ?>
+<?php include_once('logo.php'); include_once('menu.php'); ?>
 
-    <h1>Profile de <?= $requete_utilisateur['nom'] ?></h1>
+    <h1>Profile de <?= $_SESSION['prenom']." ".$_SESSION['nom'] ?></h1>
     <div>Email: <?= $requete_utilisateur['email'] ?></div>
     <div>Telephone: <?= $requete_utilisateur['telephone'] ?></div>
     <div>Role: <?= $requete_utilisateur['id_role'] ?></div>
     <div><a href="modifier_profil.php">Modifier Mon Profile</a></div>
     <div><a href="modifier_MDP.php">Modifier Mon Mot de Passe</a></div>
+
+<?php include_once('footer.php'); ?>
 
 </body>
 </html>
