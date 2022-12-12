@@ -1,6 +1,7 @@
 <?php 
 include_once('inclure.php');
 
+
 if(isset($_SESSION['id'])){
     header('Location: index.php');
     exit;
@@ -15,12 +16,12 @@ $valid = (boolean) true;
 
            //securiser
 
-       /* function secure($donnees){
+       function secure($donnees){
         $donnees = trim($donnees);
         $donnees = stripslashes($donnees);
         $donnees = htmlspecialchars($donnees);
         return $donnees;
-    }*/
+    }
 
         $nom = secure($nom);
         $prenom = secure($prenom);
@@ -116,11 +117,13 @@ $valid = (boolean) true;
         //$crypt_pass = crypt($pass, '$6$rounds=5000$9-DJf7+2;J6v+AujJdIPBKAg=cPd|l[>6D[sTwFy/;;qCfL4Lm+*4W)C++2Nq0,-$'); // crypter le mot de passe en PHP 
         $crypt_pass = password_hash($pass, PASSWORD_ARGON2ID);
         $token = bin2hex(random_bytes(12));
+        $role = 1;
+        $req = $DB->prepare("INSERT INTO utilisateurs( nom, prenom, telephone, email, mail_token, mot_de_passe, id_role)
+        VALUES (?, ?, ?, ?, ?, ?, ?)");
 
-        $req = $DB->prepare("INSERT INTO utilisateurs( nom, prenom, telephone, email, mail_token, mot_de_passe)
-        VALUES (?, ?, ?, ?, ?, ?)");
+        $req->execute(array($nom, $prenom, $telephone, $email, $token, $crypt_pass, $role));
 
-        $req->execute(array($nom, $prenom, $telephone, $email, $token, $crypt_pass));
+        
 
         $mail = $DB->prepare("SELECT * FROM utilisateurs WHERE email=?");
         $mail->execute(array($email));
@@ -138,14 +141,14 @@ $valid = (boolean) true;
 
         //=====Ajout du message au format HTML          
         $contenu = '<p>Bonjour ' . $mail['nom'] . ',</p><br>
-        <p>Veuillez confirmer votre compte <a href="http://localhost/php/auto-crash-sallome/conf.php?id=' . $mail['id_utilisateur'] . '&token=' .   $token . '">Valider</a><p>';
+        <p>Veuillez confirmer votre compte <a href="http://localhost/php/auto-crash/mail_conf.php?id=' . $mail['id_utilisateur'] . '&token=' .   $token . '">Valider</a><p>';
         			
         mail($mail_to, 'Confirmation de votre compte', $contenu, $header);
 
 
         exit;
 
-        header('location: connexion.php');
+        header('location: inscription.php');
 
 
         } else {
@@ -212,9 +215,9 @@ if(isset($_POST['connexion'])){
 
         if(isset($req_user['id_utilisateur'])){
 
-        $req = $DB->prepare("UPDATE utilisateurs
+        /*$req = $DB->prepare("UPDATE utilisateurs
         WHERE id_utilisateur = ?");
-        $req->execute(array($req_user['id_utilisateur']));
+        $req->execute(array($req_user['id_utilisateur']));*/
 
         $_SESSION['id'] = $req_user['id_utilisateur'];
         $_SESSION['nom'] = $req_user['nom'];
@@ -222,14 +225,21 @@ if(isset($_POST['connexion'])){
         $_SESSION['email'] = $req_user['email'];
         $_SESSION['role'] = $req_user['id_role'];
 
-        /*if(isset($remember)){
-            setcookie("comail", urldecode($_SESSION['email']), time()+60*60*24*100, "/");
-            setcookie("copass", $crypt_pass->crypt($mdp), time()+60*60*24*100, "/");
+        // creer un cookie pour se rappeler de la session et stocker la clé dans la base de donneé
+
+        if(isset($remember)){
+            $token = password_hash(random_bytes(32), PASSWORD_ARGON2ID);
+
+            setcookie("souvient_toi", $token, time()+60*60*24*30, "/");
+
+            $requete = $DB->prepare('UPDATE utilisateurs set souvient_toi = ? where id_utilisateur = ?');
+            $requete->execute(array($token, $_SESSION['id']));
+            
         }else
         {
-            setcookie("comail", NULL , -1, "/");
-            setcookie("copass", NULL , -1, "/");
-        }*/
+            setcookie("souvient_toi", NULL , -1, "/");
+            
+        }
 
         header('location: index.php');
                 exit;
@@ -276,17 +286,16 @@ include_once('menu.php');?>
 
         <label for="mail">Mail:</label>
         <div class="erreur"><?php if(isset($err_mail)){echo $err_mail;}?></div>
-        <input type="email" name="mail" value="<?php if(isset($mail) && !isset($_COOKIE['comail'])){echo $mail;}
-        if(isset($_COOKIE['comail'])){echo urldecode($_COOKIE['comail']);}?>" class="box"> 
+        <input type="email" name="mail" value="" class="box"> 
         
 
 
         <label for="pass">Mot de passe:</label>
         <div class="erreur"><?php if(isset($err_mdp)){echo $err_mdp;}?></div>
-        <input type="password" name="mdp" value="<?php if(isset($mdp) && !isset($_COOKIE['copass'])){echo $mdp;} if(isset($_COOKIE['copass'])){echo $crypt_pass->decrypt($_COOKIE['copass']);}?>" class="box">
+        <input type="password" name="mdp" value="" class="box">
          
 
-        <input type="checkbox" name="remember" <?php if(isset($_COOKIE['copass']) &&($_COOKIE['copass']!="")){echo "checked";}?>> Se souvenir 
+        <input type="checkbox" name="remember" <?php if(isset($_COOKIE['souvient_toi']) &&($_COOKIE['souvient_toi']!="")){echo "checked";}?>> Souvient Toi 
         
     <button type="submit" name="connexion" class="btn">Connexion </button>
 
@@ -312,6 +321,11 @@ include_once('menu.php');?>
         <label for="prenom">Prenom:</label>
         <div class="erreur"><?php if(isset($err_prenom)){echo $err_prenom;}?></div>
         <input type="text" name="prenom" value="<?php if(isset($prenom)){echo $prenom;}?>"  class="box"> 
+
+        
+        <label for="telephone">Telephone:</label>
+        <div class="erreur"><?php if(isset($err_telephone)){echo $err_telephone;}?></div>
+        <input type="text" name="telephone" value="<?php if(isset($telephone)){echo $telephone;}?>"  class="box">
         
 
         <label for="email">Mail:</label>

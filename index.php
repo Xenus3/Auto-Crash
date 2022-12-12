@@ -4,8 +4,26 @@ require_once('inclure.php');
 
 if(isset($_SESSION['id'])) {
     $saluer = "Bonjour " . $_SESSION['prenom'] . " " . $_SESSION['nom'];
+}elseif(isset($_COOKIE['souvient_toi'])) {
+    $requete = $DB->prepare('SELECT * from utilisateurs where souvient_toi = ?');
+    $requete->execute(array($_COOKIE['souvient_toi']));
+    $requete = $requete->fetch();
+
+    if($requete['id_utilisateur']) {
+        $_SESSION['id'] = $requete['id_utilisateur'];
+        $_SESSION['nom'] = $requete['nom'];
+        $_SESSION['prenom'] = $requete['prenom'];
+        $_SESSION['email'] = $requete['email'];
+        $_SESSION['role'] = $requete['id_role'];
+    }
+
+    $saluer = "Bonjour " . $requete['prenom'] . " " . $requete['nom'];
+    header('location: index.php');
+    exit;
 }else{
-    $saluer = "Bonjour Etranger";
+    
+$saluer = "Bonjour Etranger";
+    
 }
 
 
@@ -19,28 +37,15 @@ if(isset($_SESSION['id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/style.css">
     <script src="assets/script.js" defer></script>
+    
     <title>Document</title>
+    
 </head>
 <body>
  <?php  include_once('logo.php'); include_once('menu.php') ?>
     <h1><?= $saluer ?></h1>
 
-    <script type="module" src="https://cookieconsent.popupsmart.com/js/CookieConsent.js" ></script>
-    <script type="text/javascript" src="https://cookieconsent.popupsmart.com/js/App.js"></script>
-    <script>
-    popupsmartCookieConsentPopup({
-        "siteName" : "Garage Auto Crash" ,
-        "notice_banner_type": "simple-dialog",
-        "consent_type": "gdpr",
-        "palette": "dark",
-        "language": "French",
-        "privacy_policy_url" : "#" ,
-        "preferencesId" : "#" ,
-        
-    });
-    </script>
-
-    <noscript>Cookie Consent by <a href="https://popupsmart.com/" rel="nofollow noopener">Popupsmart Website</a></noscript> 
+    
     <?php include_once('footer.php'); ?>
 </body>
 </html>
