@@ -1,7 +1,7 @@
 <?php 
 
 include_once('inclure.php');
-require('fonctions/securiser.php');
+
 
 
 

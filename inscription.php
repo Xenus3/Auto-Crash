@@ -10,7 +10,7 @@ if(isset($_SESSION['id'])){
 if(!empty($_POST)){
     extract($_POST);
 
-$valid = (boolean) true;
+    $valid = (boolean) true;
 
     if(isset($_POST['inscription'])){
 
@@ -123,7 +123,7 @@ $valid = (boolean) true;
 
         $req->execute(array($nom, $prenom, $telephone, $email, $token, $crypt_pass, $role));
 
-        
+        // envoyer un mail de confirmation
 
         $mail = $DB->prepare("SELECT * FROM utilisateurs WHERE email=?");
         $mail->execute(array($email));

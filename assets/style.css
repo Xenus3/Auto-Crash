@@ -265,13 +265,12 @@ color:var(--darkgrey);
     
 }
 
+
+
 #devis {
     width:68rem; 
 }
 
-.erreur{
-    color: #d40909;
-}
 
 .btn,
 .option-btn,
@@ -312,6 +311,7 @@ color:var(--darkgrey);
 
 .footer{
     background-color: var(--black);
+    z-index: 2;
 }
 
 .footer .box-container{
@@ -370,11 +370,24 @@ color:var(--darkgrey);
 
 
 @keyframes fadeIn {
-    0%{
-        transform: translate(1rem);
-        opacity: .2s;
-    }
+    100% { transform: translateX(0%); }
 }
+
+@keyframes fadeOut {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-100%);}
+}
+
+.fadeIn {
+    animation: fadeIn 1s forwards;
+    
+}
+
+.fadeOut {
+    animation: fadeOut 0.5s forwards;
+    
+}
+
 
 /*media queries*/
 @media(max-width:991px){
