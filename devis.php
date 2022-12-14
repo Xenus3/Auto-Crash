@@ -26,7 +26,9 @@ if(!empty($_POST)){
         $confemail = secure($confemail);
         $commentaire = secure($commentaire);
         $prestation = secure($prestation);
+
         // verifications du nom
+
         if(empty($nom)){
             $valide = false;
             $message_erreur = "Le champ du nom ne peut pas etre vide!";
@@ -243,6 +245,7 @@ if(!empty($_POST)){
             <input type="text" name="confemail" class="box" value="<?php if(isset($confemail)){echo $confemail;} ?>">
             <label for="commentaire">Commentaire:</label>
             <textarea type="textarea" rows="10" name="commentaire" class="text" wrap><?php if(isset($commentaire)){echo $commentaire;} ?></textarea>
+            <div class="bttn">
             <label for="prestation">Prestation concerneé:</label>
             <select id="prestation" name="prestation" required>
             <option value="" selected disabled>--Vueillez choisir une option--</option>
@@ -250,7 +253,10 @@ if(!empty($_POST)){
             <option value="depannage">Depanage</option>
             <option value="casse">Casse</option>
             </select>
+            </div>
+            <div class="bttn">
             <input type="submit" name="devis" value="Soumettre Demande" class="btn">
+            </div>
         </form>
         <div class="erreur" > <?php if(isset($message_erreur)) {echo $message_erreur;}  ?></div>
     </div>

@@ -210,7 +210,9 @@ color:var(--yellowlight);
 color:var(--darkgrey);
 }
 
-
+.erreur{
+    color: red;
+}
 
 #menu-btn{
     display: none;
@@ -235,7 +237,7 @@ color:var(--darkgrey);
 
 .form-container form{
  padding: 1rem;
- width: 30rem;
+ width: 68rem;
  font-size: 1.3rem ;
  text-align: left;
 
@@ -271,6 +273,11 @@ color:var(--darkgrey);
     width:68rem; 
 }
 
+.bttn{
+    display: flex;
+    justify-content: center;
+    padding: 2rem 0;
+}
 
 .btn,
 .option-btn,
@@ -285,6 +292,7 @@ color:var(--darkgrey);
     font-size: 1.8rem;
     text-transform: uppercase;
     width: 28rem;
+    text-align: center;
 }
 
 
