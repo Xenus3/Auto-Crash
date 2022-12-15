@@ -38,7 +38,7 @@ if(isset($message)){
 <nav class="navbar">
     <a href="admin/admin_accueil.php" class="nav-link">Acceuil</a>
     <a href="admin/admin_carte_grise.php" class="nav-link">Carte Grise</a>
-    <a href="admin/rendez-vous.php" class="nav-link">Rendez-vous</a>
+    <a href="admin/rendez-vous.php" class="nav-link">Decalaminage</a>
     <a href="admin_utilisateurs.php" class="nav-link">Membres</a>
     <a href="admin/admin_messages.php" class="nav-link">Contact</a>
     <a href="../index.php" class="nav-link">Retour au site</a>

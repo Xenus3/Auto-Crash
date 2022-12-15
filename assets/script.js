@@ -1,5 +1,21 @@
 let navbar = document.querySelector(".header .navbar");
 let accountBox = document.querySelector(".header .account-box");
+let question = document.querySelector(".question_1");
+let reponse = document.querySelector(".reponse_1");
+let question2 = document.querySelector(".question_2");
+let reponse2 = document.querySelector(".reponse_2");
+
+question.onclick = () => {
+  reponse.classList.toggle("hidden");
+  
+};
+
+question2.onclick = () => {
+  reponse2.classList.toggle("hidden");
+  
+};
+
+
 
 document.querySelector("#menu-btn").onclick = () => {
   navbar.classList.toggle("active");
