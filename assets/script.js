@@ -4,6 +4,8 @@ let question = document.querySelector(".question_1");
 let reponse = document.querySelector(".reponse_1");
 let question2 = document.querySelector(".question_2");
 let reponse2 = document.querySelector(".reponse_2");
+let question3 = document.querySelector(".question_3");
+let reponse3 = document.querySelector(".reponse_3");
 
 question.onclick = () => {
   reponse.classList.toggle("hidden");
@@ -12,6 +14,11 @@ question.onclick = () => {
 
 question2.onclick = () => {
   reponse2.classList.toggle("hidden");
+  
+};
+
+question3.onclick = () => {
+  reponse3.classList.toggle("hidden");
   
 };
 

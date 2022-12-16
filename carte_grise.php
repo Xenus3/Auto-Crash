@@ -25,36 +25,48 @@ if(!empty($_POST)){
         $email = secure($email);
         $prestation = secure($prestation);
 
-// upload de fichiers
+// telechargement des fichiers
 
-       // on determine le chemin pour l'upload
+       // on genere un fichier avec un nom unique  pour telecharger
 
-        $token = random_int(1,1000000);
-        $location = "assets/fichiers/". $nom . $prenom.  $token ;
-
-        // on cree le dossier si celui ci n'existe pas
+        
+        $token = random_int(1,10000);
+        $location = "assets/fichiers/". $nom . "_" . $prenom. "_" . date('dmyHis') . $token ;
+        
+        // on cree le dossier si celui ci n'existe pas deja
 
         if(!is_dir($location)){
-        mkdir($location, 0755);
+        mkdir($location, 0755); 
         }
 
         // on stock le chemin dans un variable pour rensigner la base de donneés
 
-        $targetFilePath = $location  ;
+        $chemin_fichier = $location  ;
 
         // on verifie que le formulaire a ete poste et que le fichier nest pas vide
 
         if(isset($_POST["carte_grise"]) && !empty($_FILES["fichiers"]["name"])){
+
+            $fichiers_autorisé = array('jpg','png','jpeg','gif','pdf', 'jfif');// on declare les extentions autorisés
+
+            
          
-            foreach($_FILES['fichiers']['name'] as $i => $name)
-            {
-                  if(strlen($_FILES['fichiers']['name'][$i]) > 1)
-                  {  move_uploaded_file($_FILES['fichiers']['tmp_name'][$i], $targetFilePath ."/".$name);
+            foreach($_FILES['fichiers']['name'] as $i => $name){
+
+                $type_fichier = pathinfo($name,PATHINFO_EXTENSION);// on compare l'extention des fichiers avec la liste des extentions autorisé
+
+                  if(strlen($_FILES['fichiers']['name'][$i]) > 1 && in_array($type_fichier , $fichiers_autorisé))
+                  {  
+                    
+                    move_uploaded_file($_FILES['fichiers']['tmp_name'][$i], $chemin_fichier ."/".$name);
+
                   }
               }
+
+            
         }
                 
-//------- fin de l'upload
+//------- fin du telechargement des fichiers
 
         // verifications du nom
 
@@ -143,7 +155,7 @@ if(!empty($_POST)){
 
                 $requete = $DB->prepare('INSERT INTO demandes_prestations(date_demande, status, id_type_prestation, id_utilisateur, fichiers_annexe) VALUES (?, ?, ?, ?, ?)'); 
 
-                $requete->execute(array($date, $status, $prestation, $utilisateur, $targetFilePath ));
+                $requete->execute(array($date, $status, $prestation, $utilisateur, $chemin_fichier ));
 
             }else{
 
@@ -170,7 +182,7 @@ if(!empty($_POST)){
 
                     $requete = $DB->prepare('INSERT INTO demandes_prestations(date_demande, status, id_type_prestation, id_utilisateur, fichiers_annexe) VALUES (?, ?, ?, ?)'); 
 
-                    $requete->execute(array($date, $status, $prestation, $utilisateur, $targetFilePath));
+                    $requete->execute(array($date, $status, $prestation, $utilisateur, $chemin_fichier));
 
                 }
             }
