@@ -2,12 +2,12 @@
 
 include_once('../inclure.php');
 
-$requete = 'SELECT * from demandes_prestations natural join utilisateurs natural join types_prestations';
+$requete = 'SELECT * from demandes_contact natural join utilisateurs';
 
 $resultat = $DB->query($requete);
 
 if(isset($_GET['id']) && $_GET['action'] === "traite") {
-    $requete = "UPDATE demandes_prestations set status = 1 where id_demande_prestation = {$_GET['id']}";
+    $requete = "UPDATE demandes_contact set status = 1 where id_demande_contact = {$_GET['id']}";
     $DB->query($requete);
 }
 
@@ -32,18 +32,19 @@ include_once('../logo.php');
 include_once('../admin/admin_menu.php');
 ?>
 
-    <div class="demandes_cg">
-        <h1>Demandes Carte Grise</h1>
+    <div class="demandes_contact">
+        <h1>Demandes De Contact</h1>
         <table>
             <tr>
+                
                 <th>Nom</th>
                 <th>Prenom</th>
                 <th>Date de la demande</th>
-                <th>Type de prestation</th>
+                <th>Commentaire</th>
                 <th></th>
-                <th></th>
+                
             </tr>
-            <?php foreach($resultat as $donnee){ if($donnee['status'] === 0 && in_array($donnee['id_type_prestation'], [7, 8, 9, 10])) {echo "<tr><td>{$donnee['nom']}</td><td>{$donnee['prenom']}</td><td>{$donnee['date_demande']}</td><td>{$donnee['nom_prestation']}</td><td><a href='admin_carte_grise.php?id={$donnee["id_demande_prestation"]}&action=traite'>demande traité</a></td><td><a href='admin_carte_grise.php?id={$donnee["id_demande_prestation"]}&action=telecharge'>telecharger fichiers annexe</a></td></tr>";}} ?>
+            <?php foreach($resultat as $donnee){ if($donnee['status'] === 0) {echo "<tr><td>{$donnee['nom']}</td><td>{$donnee['prenom']}</td><td>{$donnee['date_contact']}</td><td>{$donnee['commentaire']}</td><td><a href='admin_contact.php?id={$donnee["id_demande_contact"]}&action=traite'>Demande traitée</a></td>";}} ?>
         </table>
            
         

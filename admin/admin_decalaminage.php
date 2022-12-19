@@ -33,17 +33,19 @@ include_once('../admin/admin_menu.php');
 ?>
 
     <div class="demandes_cg">
-        <h1>Demandes Carte Grise</h1>
+        <h1>Rendez-vous pour Decalaminage</h1>
         <table>
             <tr>
                 <th>Nom</th>
                 <th>Prenom</th>
                 <th>Date de la demande</th>
+                <th>Date souhaitée</th>
+                <th>Heure souhaitée</th>
                 <th>Type de prestation</th>
                 <th></th>
                 <th></th>
             </tr>
-            <?php foreach($resultat as $donnee){ if($donnee['status'] === 0 && in_array($donnee['id_type_prestation'], [7, 8, 9, 10])) {echo "<tr><td>{$donnee['nom']}</td><td>{$donnee['prenom']}</td><td>{$donnee['date_demande']}</td><td>{$donnee['nom_prestation']}</td><td><a href='admin_carte_grise.php?id={$donnee["id_demande_prestation"]}&action=traite'>demande traité</a></td><td><a href='admin_carte_grise.php?id={$donnee["id_demande_prestation"]}&action=telecharge'>telecharger fichiers annexe</a></td></tr>";}} ?>
+            <?php foreach($resultat as $donnee){ if($donnee['status'] === 0 && in_array($donnee['id_type_prestation'], [4, 5, 6])) {echo "<tr><td>{$donnee['nom']}</td><td>{$donnee['prenom']}</td><td>{$donnee['date_demande']}</td><td>{$donnee['date_souhaitee']}</td><td>{$donnee['heure_souhaitee']}</td><td>{$donnee['description']}</td><td><a href='decalaminage.php?id={$donnee["id_demande_prestation"]}&action=traite'>demande traité</a></td><td><a href='decalaminage.php?id={$donnee["id_demande_prestation"]}&action=paiement'>Paiement effectué</a></td></tr>";}} ?>
         </table>
            
         
