@@ -27,7 +27,7 @@ if(!empty($_POST)){
 
 // telechargement des fichiers
 
-       // on genere un fichier avec un nom unique  pour telecharger
+       // on genere un fichier avec un nom unique pour stocker les fichiers
 
         
         $token = random_int(1,10000);
@@ -173,21 +173,21 @@ if(!empty($_POST)){
     
                 if(isset($req['id_utilisateur'])){
     
-                    $date = date('d/m/y');
+                    $date = date('y/m/d');
                     $status = 0;
                     $utilisateur = $req['id_utilisateur'];
     
                     
                     // creer la demande de devis
 
-                    $requete = $DB->prepare('INSERT INTO demandes_prestations(date_demande, status, id_type_prestation, id_utilisateur, fichiers_annexe) VALUES (?, ?, ?, ?)'); 
+                    $requete = $DB->prepare('INSERT INTO demandes_prestations(date_demande, status, id_type_prestation, id_utilisateur, fichiers_annexe) VALUES (?, ?, ?, ?, ?)'); 
 
                     $requete->execute(array($date, $status, $prestation, $utilisateur, $chemin_fichier));
 
                 }
             }
 
-        // envoyer un mail a l'administrateur
+        // envoyer un mail a l'utilisateur et a l'admin
 
         $mail = $DB->prepare("SELECT * FROM utilisateurs WHERE email=?");
         $mail->execute(array($email));
@@ -195,6 +195,7 @@ if(!empty($_POST)){
         $mail = $mail->fetch();
 
         $mail_to = $mail['email'];
+        $mail_admin = "acefofo@yahoo.com";
 
         // Création du header de l'e-mail.
 
@@ -222,14 +223,24 @@ if(!empty($_POST)){
 
         }
 
-        $contenu =  $contenu = "
-        <p> Vous avez reçu un message de <strong>".$email."</strong></p>
-        <p><strong>Nom :</strong> ".$nom."</p>
-        <p><strong>Prenom :</strong> ".$prenom."</p>
-        <p><strong>Téléphone :</strong> ".$telephone."</p>
-        <p><strong>Prestation :</strong> ".$prestation."</p>";;
+        $contenu_utilisateur = "
+        <p>Bonjour $prenom $nom</p>
+      
+        <p>Votre demande a bien été prise en compte et nous allons la traiter dans les meilleurs delais</p>
+        
+        <p>Cordialement</p>";
+
+        $contenu_admin = "
+        <p> Vous avez reçu une demande de $prestation de la part de:</p>
+        <p><strong>Nom :</strong> $nom</p>
+        <p><strong>Prenom :</strong> $prenom</p>
+        <p><strong>Téléphone :</strong> $telephone</p>
+        <p><strong>Email :</strong> $email</p>";
+
+        // envoit des mails
         			
-        mail($mail_to, "Demande Carte Grise", $contenu, $header);
+        mail($mail_to, "Votre Demande de Carte Grise", $contenu_utilisateur , $header);
+        mail($mail_admin, "Demande de Carte Grise", $contenu_admin, $header);
 
         header('location: index.php');
         exit;

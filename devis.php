@@ -114,7 +114,7 @@ if(!empty($_POST)){
 
             if(isset($req['id_utilisateur'])){
 
-                $date = date('d/m/y');
+                $date = date('y/m/d');
                 $status = 0;
                 $utilisateur = $req['id_utilisateur'];
 

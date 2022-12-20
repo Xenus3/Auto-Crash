@@ -2,6 +2,13 @@
 
 include_once('../inclure.php');
 
+function secure($donnees){
+    $donnees = trim($donnees);
+    $donnees = stripslashes($donnees);
+    $donnees = htmlspecialchars($donnees);
+    return $donnees;
+}
+
 $requete = 'SELECT * from demandes_contact natural join utilisateurs';
 
 $resultat = $DB->query($requete);
@@ -11,7 +18,36 @@ if(isset($_GET['id']) && $_GET['action'] === "traite") {
     $DB->query($requete);
 }
 
+// filtres pour les demandes de contact
 
+if(isset($_POST['nom']) or isset($_POST['prenom']) or isset($_POST['date'])) { 
+
+    $nom = secure($_POST['nom']);
+    $prenom = secure($_POST['prenom']);
+    $date= secure($_POST['date']);
+    
+    
+    $conditions = array();
+
+    if(!empty($nom)) {
+       $conditions[] = 'nom like "%'.$nom.'%"';
+     }
+     if(!empty($prenom)) {
+       $conditions[] = 'prenom like "%'.$prenom.'%"';
+     }
+     if(!empty($date)) {
+         $conditions[] = 'date_contact like "%'.$date.'%"';
+     }
+    
+
+     
+   if (count($conditions) > 0) {
+       $requete  .= " WHERE " . implode(' AND ', $conditions);
+   }
+   $resultat = $DB->query($requete);
+
+
+}
 ?>
 
 <!DOCTYPE html>
@@ -31,6 +67,14 @@ if(isset($_GET['id']) && $_GET['action'] === "traite") {
 include_once('../logo.php');
 include_once('../admin/admin_menu.php');
 ?>
+    <form action="" method="post">
+        <h3>Filtrez votre recherche par</h3>
+        <input type="text" name="nom" placeholder="Par Nom">
+        <input type="text" name="prenom" placeholder="Par Prenom">
+        <input type="date" name="date" placeholder="Par Date">
+        <input type="submit" name="filtrer" value="Filtrer resultats">
+        <a href="http://localhost/php/auto-crash/admin/admin_contact.php">Reinitialiser</a>
+    </form>
 
     <div class="demandes_contact">
         <h1>Demandes De Contact</h1>

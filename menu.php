@@ -62,7 +62,7 @@ elseif(isset($_SESSION['id']) && in_array($_SESSION['role'], [1,2]) ) {
     <a href="index.php" class="nav-link">Acceuil</a>
     <a href="qui_sommes_nous.php" class="nav-link">Qui sommes nous ?</a>
     <a href="prestation.php" class="nav-link">Prestations</a>
-    <a href="cartes_grise.php" class="nav-link">Carte Grise</a>
+    <a href="carte_grise.php" class="nav-link">Carte Grise</a>
     <a href="decalaminage.php" class="nav-link">Decalaminage</a>
     <a href="devis.php" class="nav-link">Devis</a>
     <a href="contact.php" class="nav-link">contact</a>
@@ -88,7 +88,7 @@ elseif(isset($_SESSION['id']) && in_array($_SESSION['role'], [1,2]) ) {
    <a href="index.php" class="nav-link">Acceuil</a>
    <a href="qui_sommes_nous.php" class="nav-link">Qui sommes nous ?</a>
    <a href="prestation.php" class="nav-link">Prestations</a>
-   <a href="cartes_grise.php" class="nav-link">Carte Grise</a>
+   <a href="carte_grise.php" class="nav-link">Carte Grise</a>
    <a href="decalaminage.php" class="nav-link">Decalaminage</a>
    <a href="devis.php" class="nav-link">Devis</a>
    <a href="contact.php" class="nav-link">contact</a>

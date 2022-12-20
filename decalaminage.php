@@ -133,7 +133,7 @@ if(!empty($_POST)){
     
                 if(isset($req['id_utilisateur'])){
     
-                    $date = date('d/m/y');
+                    $date = date('y/m/d');
                     $status = 0;
                     $utilisateur = $req['id_utilisateur'];
     
@@ -147,7 +147,7 @@ if(!empty($_POST)){
                 }
             }
 
-        // envoyer un mail a l'administrateur
+        // envoyer un mail a l'utilisateur et a l'administrateur
 
         $mail = $DB->prepare("SELECT * FROM utilisateurs WHERE email=?");
         $mail->execute(array($email));
@@ -180,12 +180,12 @@ if(!empty($_POST)){
 
         }
 
-        $contenu =  $contenu = "
-        <p> Vous avez reçu un message de <strong>".$email."</strong></p>
-        <p><strong>Nom :</strong> ".$nom."</p>
-        <p><strong>Prenom :</strong> ".$prenom."</p>
-        <p><strong>Téléphone :</strong> ".$telephone."</p>
-        <p><strong>Prestation :</strong> ".$prestation."</p>";;
+        $contenu = "
+        <p>Bonjour $prenom $nom</p>
+      
+        <p>Votre demande a bien été prise en compte et nous allons la traiter dans les meilleurs delais</p>
+        
+        <p>Cordialement</p>";
         			
         mail($mail_to, "Demande Rendez-vous pour Decalamainage", $contenu, $header);
 
