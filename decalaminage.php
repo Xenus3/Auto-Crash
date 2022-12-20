@@ -32,17 +32,17 @@ if(!empty($_POST)){
 
         if(empty($nom)){
             $valide = false;
-            $message_erreur = "Le champ du nom ne peut pas etre vide!";
+            $erreur_nom = "Le champ du nom ne peut pas etre vide!";
         } 
         elseif(grapheme_strlen($nom)<3){ // graphem_strLen permet de reduire les emot ou caractères spéciaux à 1
 
             $valide = false;
-            $message_erreur = "le nom doit faire au moins 2 caractères";
+            $erreur_nom  = "le nom doit faire au moins 2 caractères";
 
         }
            elseif(grapheme_strlen($nom)>=30){ 
             $valide = false;
-            $message_erreur = "ce nom doit faire au plus de 31 caractères (" . grapheme_strlen($nom) . "/30)";
+            $erreur_nom  = "ce nom doit faire au plus de 31 caractères (" . grapheme_strlen($nom) . "/30)";
 
         }
         
@@ -50,17 +50,17 @@ if(!empty($_POST)){
         
         if(empty($prenom)){
             $valide = false;
-            $message_erreur= "Veuillez entrer votre prénom";
+            $erreur_prenom= "Veuillez entrer votre prénom";
         }
             elseif(grapheme_strlen($prenom)<3){
             $valide = false;
-            $message_erreur= "ce nom doit faire plus de 2 caractères";
+            $erreur_prenom= "ce nom doit faire plus de 2 caractères";
 
         }
 
             elseif(grapheme_strlen($prenom)>30){
             $valide = false;
-            $message_erreur= "ce nom doit faire moins de 31 caractères (" . grapheme_strlen($prenom) . "/30)";
+            $erreur_prenom= "ce nom doit faire moins de 31 caractères (" . grapheme_strlen($prenom) . "/30)";
 
         }
 
@@ -72,23 +72,17 @@ if(!empty($_POST)){
 
         }
         
-        elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-            $valide = false;
-            $erreur_tel = "Votre adresse email est invalide";
-
-        }
-
         // verifications du mail
 
         if(empty($email)){
             $valide = false;
-            $message_erreur = "Le champ adresse email ne peut etre vide";
+            $erreur_mail = "Le champ adresse email ne peut etre vide";
 
         }
         
         elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)){
             $valide = false;
-            $message_erreur = "Votre Adresse email est invalide";
+            $erreur_mail = "Votre Adresse email est invalide";
 
         }
 
@@ -104,7 +98,7 @@ if(!empty($_POST)){
 
             if(isset($req['id_utilisateur'])){
 
-                $date = date('d/m/y');
+                $date = date('y/m/d');
                 $status = 0;
                 $utilisateur = $req['id_utilisateur'];
 
@@ -239,7 +233,7 @@ include_once('menu.php');
     
     <form action="" method="post" enctype="multipart/form-data">
 
-        <h3>Carte grise</h3>
+        <h3>Rendez-vous pour Decalaminage</h3>
 
         <label for="nom">Nom:</label>
         <div class="erreur"><?php if(isset($erreur_nom)){echo $erreur_nom;}?></div>
@@ -251,19 +245,17 @@ include_once('menu.php');
 
         <label for="tel">Téléphone:</label>
         <div class="erreur"><?php if(isset($erreur_tel )){echo $erreur_tel ;}?></div>
-        <input type="text" name="telephone" value="<?php if(isset($telephone)){echo $telephone;}?>"  class="box">
+        <input type="text" name="telephone" value="<?php if(isset($telephone)){echo $telephone;}?>"  class="box" pattern="^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$">
 
         <label for="email">Mail:</label>
         <div class="erreur"><?php if(isset($erreur_mail)){echo $erreur_mail;}?></div>
         <input type="email" name="email" value="<?php if(isset($email)){echo $email;}?>"  class="box">
         
         <label for="tel">Date Souhaiteé</label>
-        <div class="erreur"><?php if(isset($err_email)){echo $err_email;}?></div>
-        <input type="date" name="daterdv"  class="box"> 
+        <input type="date" name="daterdv"  class="box" min="<?php echo date("Y-m-d"); ?>" required> 
 
         <label for="tel">Horraire souhaité:</label>
-        <div class="erreur"><?php if(isset($err_email)){echo $err_email;}?></div>
-        <input type="time" name="heurerdv"  class="box"> 
+        <input type="time" name="heurerdv"  class="box" required> 
 
         <div class="bttn">
         <select id="prestation" name="prestation" class="input" required>
@@ -275,7 +267,7 @@ include_once('menu.php');
         </div>
 
         <div class="bttn">
-        <button type="submit" name="decalaminage" class="btn">Nous Contacter</button>
+        <button type="submit" name="decalaminage" class="btn">Prendre Rendez-Vous</button>
         </div>
 
 

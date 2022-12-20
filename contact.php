@@ -147,7 +147,7 @@ if(!empty($_POST)){
     
                 if(isset($req['id_utilisateur'])){
     
-                    $date = date('d/m/y');
+                    $date = date('y/m/d');
                     $status = 0;
                     $utilisateur = $req['id_utilisateur'];
     
@@ -250,7 +250,7 @@ include_once('menu.php');
 
         <label for="tel">Téléphone:</label>
         <div class="erreur"><?php if(isset($erreur_tel )){echo $erreur_tel ;}?></div>
-        <input type="text" name="telephone" value="<?php if(isset($telephone)){echo $telephone;}?>"  class="box">
+        <input type="text" name="telephone" value="<?php if(isset($telephone)){echo $telephone;}?>"  class="box" pattern="^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$">
 
         <label for="email">Mail:</label>
         <div class="erreur"><?php if(isset($erreur_mail)){echo $erreur_mail;}?></div>

@@ -153,7 +153,7 @@ if(!empty($_POST)){
     
                 if(isset($req['id_utilisateur'])){
     
-                    $date = date('d/m/y');
+                    $date = date('y/m/d');
                     $status = 0;
                     $utilisateur = $req['id_utilisateur'];
     
@@ -238,7 +238,7 @@ if(!empty($_POST)){
             <label for="prenom">Prenom:</label>
             <input type="text" name="prenom" class="box" value="<?php if(isset($prenom)){echo $prenom;} ?>">
             <label for="elephone">Telephone:</label>
-            <input type="text" name="telephone" class="box" value="<?php if(isset($telephone)){echo $telephone;} ?>">
+            <input type="text" name="telephone" class="box" value="<?php if(isset($telephone)){echo $telephone;} ?>" pattern="^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$">
             <label for="email">Email:</label>
             <input type="text" name="email" class="box" value="<?php if(isset($email)){echo $email;} ?>">
             <label for="confemail">Confirmez Email:</label>

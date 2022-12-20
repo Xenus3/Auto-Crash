@@ -2,6 +2,13 @@
 
 include_once('../inclure.php');
 
+function secure($donnees){
+    $donnees = trim($donnees);
+    $donnees = stripslashes($donnees);
+    $donnees = htmlspecialchars($donnees);
+    return $donnees;
+}
+
 $requete = 'SELECT * from demandes_prestations natural join utilisateurs natural join types_prestations';
 
 $resultat = $DB->query($requete);
@@ -48,6 +55,36 @@ if(isset($_GET['id']) && $_GET['action'] === "telecharge") {
     readfile($zip_file_name);
 }
 
+if(isset($_POST['nom']) or isset($_POST['prenom']) or isset($_POST['date']) or isset($_POST['prestation'])) { 
+
+    $nom = secure($_POST['nom']);
+    $prenom = secure($_POST['prenom']);
+    $date= secure($_POST['date']);
+    $prestation= secure($_POST['prestation']);
+    
+    $conditions = array();
+
+    if(!empty($nom)) {
+       $conditions[] = 'nom like "%'.$nom.'%"';
+     }
+     if(!empty($prenom)) {
+       $conditions[] = 'prenom like "%'.$prenom.'%"';
+     }
+     if(!empty($date)) {
+         $conditions[] = 'date_demande like "%'.$date.'%"';
+     }
+     if(!empty($prestation)) {
+       $conditions[] = 'id_type_prestation like "%'.$prestation.'%"';
+     }
+
+     
+   if (count($conditions) > 0) {
+       $requete  .= " WHERE " . implode(' AND ', $conditions);
+   }
+   $resultat = $DB->query($requete);
+
+
+}
 
 ?>
 
@@ -68,6 +105,23 @@ if(isset($_GET['id']) && $_GET['action'] === "telecharge") {
 include_once('../logo.php');
 include_once('../admin/admin_menu.php');
 ?>
+    <form action="" method="post">
+        <h3>Filtrez votre recherche par</h3>
+        <input type="text" name="nom" placeholder="Par Nom">
+        <input type="text" name="prenom" placeholder="Par Prenom">
+        <label for="date">Date de la demande:</label>
+        <input type="date" name="date" placeholder="Par Date">
+        <label for="prestation">Prestation demandeé:</label>
+        <select name="prestation" id="prestations">
+            <option value="" selected desactivated>--Veuller choisir une option--</option>
+            <option value="7">Demande carte grise pour vehicule d'occasion etranger ou vehicule neuf</option>
+            <option value="8">Demande de carte grise pour vehicule d'occasion Francais</option>
+            <option value="9">Changement d'adresse sur la carte grise</option>
+            <option value="10">Changement de titulaire de la carte grise</option>
+        </select>
+        <input type="submit" name="filtrer" value="Filtrer recherche">
+        <a href="http://localhost/php/auto-crash/admin/admin_carte_grise.php">Reinitialiser</a>
+    </form>
 
     <div class="demandes_cg">
         <h1>Demandes Carte Grise</h1>
