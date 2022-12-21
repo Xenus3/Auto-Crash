@@ -1,4 +1,5 @@
-<?php
+<?php 
+
 include_once('inclure.php');
 
 
@@ -29,12 +30,12 @@ if(isset($message)){
 <header class="header_menu"> 
 <div class="flex">
 <?php 
-    if(!isset($_SESSION['id'])){
+   if(!isset($_SESSION['id_utilisateur'])){
 
     
 ?>
 <nav class="menu">
-
+<img src="image/rogner.png">
 <i class="fa-solid fa-phone"></i>  03 27 64 59 71
 <i class="fa-sharp fa-solid fa-envelope"></i> autocrash@orange.fr
 
@@ -53,7 +54,7 @@ else{
  ?>
 
 <nav class="menu">
-
+<img src="image/rogner.png">
 <i class="fa-solid fa-phone"></i>  03 27 64 59 71
 <i class="fa-sharp fa-solid fa-envelope"></i> autocrash@orange.fr
 

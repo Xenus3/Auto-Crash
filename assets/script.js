@@ -1,11 +1,15 @@
 let navbar = document.querySelector(".header .navbar");
 let accountBox = document.querySelector(".header .account-box");
-let question = document.querySelector(".question_1");
-let reponse = document.querySelector(".reponse_1");
-let question2 = document.querySelector(".question_2");
-let reponse2 = document.querySelector(".reponse_2");
-let question3 = document.querySelector(".question_3");
-let reponse3 = document.querySelector(".reponse_3");
+
+
+if ($("body").data("title") === "faq") {
+
+  let question = document.querySelector(".question_1");
+  let reponse = document.querySelector(".reponse_1");
+  let question2 = document.querySelector(".question_2");
+  let reponse2 = document.querySelector(".reponse_2");
+  let question3 = document.querySelector(".question_3");
+  let reponse3 = document.querySelector(".reponse_3");
 
 question.onclick = () => {
   reponse.classList.toggle("hidden");
@@ -38,41 +42,51 @@ window.onscroll = () => {
   navbar.classList.remove("active");
   accountBox.classList.remove("active");
 };
-
-
-let slideIndex = 1;
-showSlides(slideIndex);
-
-
-function nextSlide() {
-    showSlides(slideIndex += 1);
 }
 
 
-function previousSlide() {
-    showSlides(slideIndex -= 1);  
-}
-
-
-function currentSlide(n) {
-    showSlides(slideIndex = n);
-}
-
-
-function showSlides(n) {
-    let i;
-    let slides = document.getElementsByClassName("item");
-    
-    if (n > slides.length) {
-      slideIndex = 1
-    }
-    if (n < 1) {
-        slideIndex = slides.length
-    }
+if ($("body").data("title") === "accueil") {
   
 
-    for (let slide of slides) {
-        slide.style.display = "none";
-    }   
-    slides[slideIndex - 1].style.display = "block"; 
+let img__slider = document.getElementsByClassName("img__slider");
+
+let etape = 0;
+
+let nbr__img = img__slider.length;
+
+let precedent = document.querySelector(".precedent");
+let suivant = document.querySelector(".suivant");
+
+function enleverActiveImages() {
+  for (let i = 0; i < nbr__img; i++) {
+    img__slider[i].classList.remove("active");
+  }
+}
+
+suivant.addEventListener("click", function () {
+  etape++;
+  if (etape >= nbr__img) {
+    etape = 0;
+  }
+  enleverActiveImages();
+  img__slider[etape].classList.add("active");
+});
+
+precedent.addEventListener("click", function () {
+  etape--;
+  if (etape < 0) {
+    etape = nbr__img - 1;
+  }
+  enleverActiveImages();
+  img__slider[etape].classList.add("active");
+});
+
+setInterval(function () {
+  etape++;
+  if (etape >= nbr__img) {
+    etape = 0;
+  }
+  enleverActiveImages();
+  img__slider[etape].classList.add("active");
+}, 3000);
 }

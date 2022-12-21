@@ -24,6 +24,7 @@ if(!empty($_POST)){
         $telephone = secure($telephone);
         $email = secure($email);
         $confemail = secure($confemail);
+        $matricule = secure($matricule);
         $commentaire = secure($commentaire);
         $prestation = secure($prestation);
 
@@ -31,17 +32,17 @@ if(!empty($_POST)){
 
         if(empty($nom)){
             $valide = false;
-            $message_erreur = "Le champ du nom ne peut pas etre vide!";
+            $erreur_nom = "Le champ du nom ne peut pas etre vide!";
         } 
         elseif(grapheme_strlen($nom)<3){ // graphem_strLen permet de reduire les emot ou caractères spéciaux à 1
 
             $valide = false;
-            $message_erreur = "le nom doit faire au moins 2 caractères";
+            $$erreur_nom = "le nom doit faire au moins 2 caractères";
 
         }
            elseif(grapheme_strlen($nom)>=30){ 
             $valide = false;
-            $message_erreur = "ce nom doit faire au plus de 31 caractères (" . grapheme_strlen($nom) . "/30)";
+            $$erreur_nom = "ce nom doit faire au plus de 31 caractères (" . grapheme_strlen($nom) . "/30)";
 
         }
         
@@ -49,17 +50,25 @@ if(!empty($_POST)){
         
         if(empty($prenom)){
             $valide = false;
-            $message_erreur= "Veuillez entrer votre prénom";
+            $erreur_prenom= "Veuillez entrer votre prénom";
         }
             elseif(grapheme_strlen($prenom)<3){
             $valide = false;
-            $message_erreur= "ce nom doit faire plus de 2 caractères";
+            $erreur_prenom= "ce nom doit faire plus de 2 caractères";
 
         }
 
             elseif(grapheme_strlen($prenom)>30){
             $valide = false;
-            $message_erreur= "ce nom doit faire moins de 31 caractères (" . grapheme_strlen($prenom) . "/30)";
+            $erreur_prenom= "ce nom doit faire moins de 31 caractères (" . grapheme_strlen($prenom) . "/30)";
+
+        }
+
+        // verifications du telephone
+
+        if(empty($telephone)){
+            $valide = false;
+            $erreur_tel = "Le champ du telephone ne peut pas etre vide!";
 
         }
 
@@ -67,23 +76,42 @@ if(!empty($_POST)){
 
         if(empty($email)){
             $valide = false;
-            $message_erreur = "Le champ adresse email ne peut etre vide";
+            $erreur_mail = "Le champ adresse email ne peut etre vide";
 
         }
         
         elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)){
             $valide = false;
-            $message_erreur = "Votre Adresse email est invalide";
+            $erreur_mail = "Votre Adresse email est invalide";
 
         }
 
         elseif($email<>$confemail){
 
             $valide = false;
-            $message_erreur = "L'adresse email que vous avez saisis est différente de sa confirmation";
+            $erreur_mail = "L'adresse email que vous avez saisis est différente de sa confirmation";
         
         
         }
+
+        // verifications du matricule
+
+        if(empty($matricule)){
+            $valide = false;
+            $erreur_matricule = "Le champ du matricule ne peut pas etre vide!";
+        } 
+        /*elseif(grapheme_strlen($matricule)<3){ // graphem_strLen permet de reduire les emot ou caractères spéciaux à 1
+
+            $valide = false;
+            $message_erreur = "le nom doit faire au moins 2 caractères";
+
+        }
+           elseif(grapheme_strlen($matricule)>=30){ 
+            $valide = false;
+            $message_erreur = "ce nom doit faire au plus de 31 caractères (" . grapheme_strlen($nom) . "/30)";
+
+        }*/
+        
 
         // verifications du commentaire
 
@@ -230,21 +258,39 @@ if(!empty($_POST)){
 <body>
 
 <?php include_once('logo.php'); include_once('menu.php'); ?>
+
     <div class="form-container" >
+
         <form action="" method="post" id="devis">
+
             <h3>Demande de Devis</h3>
+
             <label for="nom">Nom:</label>
+            <div class="erreur"><?php if(isset($erreur_nom)){echo $erreur_nom;}?></div>
             <input type="text" name="nom" class="box" value="<?php if(isset($nom)){echo $nom;} ?>">
+
             <label for="prenom">Prenom:</label>
+            <div class="erreur"><?php if(isset($erreur_prenom)){echo $erreur_prenom;}?></div>
             <input type="text" name="prenom" class="box" value="<?php if(isset($prenom)){echo $prenom;} ?>">
+
             <label for="elephone">Telephone:</label>
+            <div class="erreur"><?php if(isset($erreur_tel )){echo $erreur_tel ;}?></div>
             <input type="text" name="telephone" class="box" value="<?php if(isset($telephone)){echo $telephone;} ?>" pattern="^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$">
+
             <label for="email">Email:</label>
+            <div class="erreur"><?php if(isset($erreur_mail)){echo $erreur_mail;}?></div>
             <input type="text" name="email" class="box" value="<?php if(isset($email)){echo $email;} ?>">
+            
             <label for="confemail">Confirmez Email:</label>
             <input type="text" name="confemail" class="box" value="<?php if(isset($confemail)){echo $confemail;} ?>">
+
+            <label for="matricule">Matricule:</label>
+            <div class="erreur"><?php if(isset($erreur_matrivcule)){echo $erreur_matrivcule;}?></div>
+            <input type="text" name="matricule" class="box" value="<?php if(isset($matricule)){echo $matricule;} ?>">
+
             <label for="commentaire">Commentaire:</label>
-            <textarea type="textarea" rows="10" name="commentaire" class="text" wrap><?php if(isset($commentaire)){echo $commentaire;} ?></textarea>
+            <textarea type="textarea" rows="10" name="commentaire" class="box" wrap><?php if(isset($commentaire)){echo $commentaire;} ?></textarea>
+
             <div class="bttn">
             <label for="prestation">Prestation concerneé:</label>
             <select id="prestation" name="prestation" required>
@@ -254,9 +300,11 @@ if(!empty($_POST)){
             <option value="casse">Casse</option>
             </select>
             </div>
+
             <div class="bttn">
             <input type="submit" name="devis" value="Soumettre Demande" class="btn">
             </div>
+
         </form>
         <div class="erreur" > <?php if(isset($message_erreur)) {echo $message_erreur;}  ?></div>
     </div>

@@ -11,11 +11,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/style.css">
+    <script
+  src="https://code.jquery.com/jquery-3.6.3.slim.js"
+  integrity="sha256-DKU1CmJ8kBuEwumaLuh9Tl/6ZB6jzGOBV/5YpNE2BWc="
+  crossorigin="anonymous" defer></script>
     <script src="assets/script.js" defer></script>
     <script src="https://kit.fontawesome.com/13b8658640.js" crossorigin="anonymous"></script>
     <title>Document</title>
 </head>
-<body>
+<body data-title="faq">
 <?php
 include_once('logo.php');
 include_once('menu.php');
@@ -35,7 +39,11 @@ include_once('menu.php');
 <p class="question_2 clickable"><i class="fa-solid fa-chevron-right"></i>Comment telecharger des documents pour la demande de carte grise?</p>
 <div class="reponse_2 hidden">
     <h4>Comment telecharger vos fichiers :</h4>
-    <p>pour commencer creer un dossier sur votre bureau par exemple et donenr lui le nom que vous voulez, ensuite mettez tout vos fichiers dans ce dossier, et assurez tout les fichiers avant de faire votre demande, </p>
+    <p>pour commencer creer un dossier sur votre bureau par exemple et donenr lui le nom que vous voulez, ensuite mettez tout vos fichiers dans ce dossier, et assurez vous que tout les fichiers requis sont present dans ce dossier avant de faire votre demande</p>
+    <p>
+        ensuite sur la page demande de carte grise appuyez sur le boutton selectionnez fichiers et naviguer sur votre bureau et selectionnez le dossier qui contient tout vos fichiers
+        <img src="image/telecharger_fichiers.PNG" alt="">
+    </p>
 </div>
 
 <p class="question_3 clickable"><i class="fa-solid fa-chevron-right"></i>Quelle sont les documents requis pour faire une demande de carte grise?</p>

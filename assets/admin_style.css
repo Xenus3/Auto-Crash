@@ -1,70 +1,4 @@
-* {
-    box-sizing: border-box;
-  }
-  .openBtn {
-    display: flex;
-    justify-content: left;
-  }
-  .openButton {
-    border: none;
-    border-radius: 5px;
-    background-color: #1c87c9;
-    color: white;
-    padding: 14px 20px;
-    cursor: pointer;
-    
-  }
-  .loginPopup {
-    position: relative;
-    text-align: center;
-    width: 100%;
-  }
-  .formPopup {
-    display: none;
-    position: fixed;
-    left: 45%;
-    top: 5%;
-    transform: translate(-50%, 5%);
-    border: 3px solid #999999;
-    z-index: 9;
-  }
-  .formContainer {
-    max-width: 300px;
-    padding: 20px;
-    background-color: #fff;
-  }
-  .formContainer input[type=text],
-  .formContainer input[type=password] {
-    width: 100%;
-    padding: 15px;
-    margin: 5px 0 20px 0;
-    border: none;
-    background: #eee;
-  }
-  .formContainer input[type=text]:focus,
-  .formContainer input[type=password]:focus {
-    background-color: #ddd;
-    outline: none;
-  }
-  .formContainer .btn {
-    padding: 12px 20px;
-    border: none;
-    background-color: #8ebf42;
-    color: #fff;
-    cursor: pointer;
-    width: 100%;
-    margin-bottom: 15px;
-    opacity: 0.8;
-  }
-  .formContainer .cancel {
-    background-color: #cc0000;
-  }
-  .formContainer .btn:hover,
-  .openButton:hover {
-    opacity: 1;
-  }
-
-  @import url('https://fonts.googleapis.com/css2?family=Domine&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Domine&display=swap');
 
 :root {
     --black: #000000;
@@ -104,54 +38,6 @@ section{
     padding: 3rem 2rem;
 }
 
-.slider{
-    max-width: 90%;
-    position: relative;
-    margin: auto;
-    height: 300px;
-}
-
-.slider .item img {
-    object-fit: cover;
-    width: 100%;
-    height: 300px;
-}
-
-.slider .previous, .slider .next {
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    width: auto;
-    margin-top: -22px;
-    padding: 16px;
-    color: white;
-    font-weight: bold;
-    font-size: 16px;
-    transition: 0.6s ease;
-    border-radius: 0 3px 3px 0;
-}
-.slider .next {
-    right: 0;
-    border-radius: 3px 0 0 3px;
-}
-
-.slider .previous:hover,
-.slider .next:hover {
-    background-color: rgba(0, 0, 0, 0.2);
-}
-
-.slider .item {
-    animation-name: fade;
-    animation-duration: 1.5s;
-}
-@keyframes fade {
-    from {
-        opacity: 0.4
-    }
-    to {
-        opacity: 1
-    }
-}
 
 
 .header {
@@ -276,14 +162,7 @@ color:var(--yellowlight);
 color:var(--darkgrey);
 }
 
-.hidden {
-    display: none;
-    margin: 5px 10px;
-}
 
-.erreur{
-    color: red;
-}
 
 #menu-btn{
     display: none;
@@ -308,7 +187,7 @@ color:var(--darkgrey);
 
 .form-container form{
  padding: 1rem;
- width: 68rem;
+ width: 30rem;
  font-size: 1.3rem ;
  text-align: left;
 
@@ -332,22 +211,8 @@ color:var(--darkgrey);
     margin-top: 0.3rem;
 }
 
-.form-container form .text {
-    border: var(--border);
-    width:100%;
-    
-}
-
-
-
-#devis {
-    width:68rem; 
-}
-
-.bttn{
-    display: flex;
-    justify-content: center;
-    padding: 2rem 0;
+.erreur{
+    color: #d40909;
 }
 
 .btn,
@@ -363,7 +228,6 @@ color:var(--darkgrey);
     font-size: 1.8rem;
     text-transform: uppercase;
     width: 28rem;
-    text-align: center;
 }
 
 
@@ -390,7 +254,6 @@ color:var(--darkgrey);
 
 .footer{
     background-color: var(--black);
-    z-index: 2;
 }
 
 .footer .box-container{
@@ -449,50 +312,10 @@ color:var(--darkgrey);
 
 
 @keyframes fadeIn {
-    100% { transform: translateX(0%); }
-}
-
-@keyframes fadeOut {
-    0% { transform: translateX(0%); }
-    100% { transform: translateX(-100%);}
-}
-
-.fadeIn {
-    animation: fadeIn 1s forwards;
-    
-}
-
-.fadeOut {
-    animation: fadeOut 0.5s forwards;
-    
-}
-
-.qr {
-    display: flex;
-    background: lightblue;
-    flex-direction: column;
-    height: auto;
-    width: 60%;
-    margin: 0 auto;
-    justify-content: space-evenly;
-    font-size: 1.5rem;
-}
-
-.qr h1 {
-    text-align: center;
-    margin: 40px auto;
-}
-
-.qr h3 {
-    margin: 20px 10px;
-}
-
-.clickable {
-    cursor: pointer;
-}
-
-.clickable  {
-    margin: 5px 10px;
+    0%{
+        transform: translate(1rem);
+        opacity: .2s;
+    }
 }
 
 /*media queries*/
@@ -543,4 +366,3 @@ color:var(--darkgrey);
     }
 
 }
-

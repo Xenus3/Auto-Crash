@@ -71,12 +71,7 @@ if(!empty($_POST)){
 
         }
         
-        elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-            $valide = false;
-            $erreur_tel = "Votre adresse email est invalide";
-
-        }
-
+       
         // verifications du mail
 
         if(empty($email)){

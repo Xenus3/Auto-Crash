@@ -323,12 +323,12 @@ include_once('menu.php');
 
 
         <div class="bttn">
-        <label for="fichiers">Veuillez telecharger votre dossier:</label>
-        <input type="file" name="fichiers[]" multiple directory="" webkitdirectory="" moxdirectory="" required/>
+        <label for="fichiers[]">Veuillez telecharger votre dossier:</label>
+        <input type="file" name="fichiers[]"  multiple directory="" webkitdirectory="" moxdirectory="" required/>
         </div>
 
         <div class="bttn">
-        <input type="submit" name="carte_grise" valeur="Soumettre Demande" class="btn">
+        <input type="submit" name="carte_grise" value="Soumettre Demande" class="btn">
         </div>
 
     </form>
