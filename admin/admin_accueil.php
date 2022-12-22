@@ -5,6 +5,31 @@ if(!in_array($_SESSION['role'], [1,2])){
     exit;
 }
 
+// conteur utilisateurs
+
+$requete = $DB->query('SELECT count(id_utilisateur) as nombre_util FROM utilisateurs');
+$requete = $requete->fetch();
+
+//conteur carte grise
+
+$requete_2 = $DB->query('SELECT count(id_demande_prestation) as nombre_demande_cg FROM demandes_prestations WHERE status = 0 AND id_type_prestation IN (4,5,6)');
+$requete_2 = $requete_2->fetch();
+
+// conteur decalaminage
+
+$requete_3 = $DB->query('SELECT count(id_demande_prestation) as nombre_demande_deca FROM demandes_prestations WHERE status = 0 AND id_type_prestation IN (7,8,9,10)');
+$requete_3 = $requete_3->fetch();
+
+// compteur contact
+
+$requete_4 = $DB->query('SELECT count(id_demande_contact) as nombre_contact FROM demandes_contact WHERE status = 0');
+$requete_4 = $requete_4->fetch();
+
+// conmpteur devis
+
+$requete_5 = $DB->query('SELECT count(id_demande_devis) as nombre_devis FROM demandes_devis WHERE status = 0');
+$requete_5 = $requete_5->fetch();
+
 ?>
 
 <!DOCTYPE html>
@@ -15,6 +40,7 @@ if(!in_array($_SESSION['role'], [1,2])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/script.js" defer></script>
     
     <title>Document</title>
 </head>
@@ -24,10 +50,37 @@ if(!in_array($_SESSION['role'], [1,2])){
 include_once('../logo.php');
 include_once('../admin/admin_menu.php');?>
 
-<div> Espace Admin</div>
+<div class="admin_panneau">
 
-<iframe src="https://calendar.zoho.eu/zc/ui/embed/#
-calendar=dfc480420e014701e6ef408456b47d285772c727869a24ef156fb0d0ac66c1a6218a5455a61e55235dfb7bfc03042aec&title=Calendrier%20AutoCrash&type=1&language=en&timezone=Europe%2FParis&showTitle=1&showTimezone=1&view=day&showDetail=0&theme=1&eventColorType=light"width="350" height="500" frameBorder="0" scrolling="no"></iframe>
+    
+    <div class="panneau" onclick="location.href='admin_carte_grise.php';" style="cursor: pointer;">
+        <h4>Nombre de demandes de cartes Grises en attente:</h4>
+        <div class="conteur"><?= $requete_2['nombre_demande_cg'] ?></div>
+    </div>
+    
+    <div class="panneau" onclick="location.href='admin_decalaminage.php';" style="cursor: pointer;">
+        <h4>Nombre de demandes de Decalaminage en attente:</h4>
+        <div class="conteur"><?= $requete_3['nombre_demande_deca'] ?></div>
+    </div>
+
+    <div class="panneau" onclick="location.href='admin_utilisateurs.php';" style="cursor: pointer;">
+        <h4>Utilisateurs inscrits:</h4>
+        <div class="conteur"><?= $requete['nombre_util'] ?></div>
+    </div>
+
+    <div class="panneau" onclick="location.href='admin_contact.php';" style="cursor: pointer;">
+        <h4>Nombre de demandes de Contact en attente:</h4>
+        <div class="conteur"><?= $requete_4['nombre_contact'] ?></div>
+    </div>
+
+    <div class="panneau" onclick="location.href='admin_devis.php';" style="cursor: pointer;">
+        <h4>Nombre de demandes de Devis en attente:</h4>
+        <div class="conteur"><?= $requete_5['nombre_devis'] ?></div>
+    </div>
+    
+</div>
+
+
     
 </body>
 </html>

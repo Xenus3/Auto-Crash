@@ -32,12 +32,14 @@ if (!isset($_SESSION['id'])){
             $email = securiser($email);
             $telephone = securiser($telephone);
 
-            if(!isset($email)) {
+            // verifications du mail
+
+            if(empty($email)) {
                 $valide = false;
-                $message_erreur = "Ce champ ne peut etre vide";
+                $erreur_mail = "Le champ de l'adresse mail ne peut pas etre vide";
             }elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)){
                 $valide = false;
-                $message_erreur = "Vueiller renseigner un email qui est valide";
+                $erreur_mail = "Vueiller renseigner un mail qui est valide";
             }else{
                 $requete = $DB->prepare('SELECT id_utilisateur from utilisateurs where email=?');
 
@@ -47,8 +49,15 @@ if (!isset($_SESSION['id'])){
 
                 if(isset($requete['id'])) {
                     $valide = false;
-                    $message_erreur = "Ce mail est lié a un autre compte";
+                    $erreur_mail = "Ce mail est lié a un autre compte";
                 }
+            }
+
+            // verifications du telephone
+
+            if(empty($telephone)) {
+                $valide = false;
+                $erreur_telephone = "Le champ du numero de telephone ne peut pas etre vide";
             }
 
             if($valide) {
@@ -67,9 +76,9 @@ if (!isset($_SESSION['id'])){
 
 // pour afficher les donneés de la base de donneés dans les zones de saisie
 
-if(isset($info_user['email']) or isset($info_user['telephone']))
+/*if(isset($info_user['email']) or isset($info_user['telephone']))
 {$email = $info_user['email'];
-$telephone = $info_user['telephone'];}
+$telephone = $info_user['telephone'];}*/
 
 
 
@@ -80,24 +89,34 @@ $telephone = $info_user['telephone'];}
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modifier Mon Compte</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <script src="assets/script.js" defer></script>
+    <title>Modifier Mon Profil</title>
 </head>
 <body>
 
-    <?php  include ('navbar.php') ?>
+<?php include_once('logo.php'); include_once('menu.php'); ?>
 
-    <h1>Modifier Mes Informations</h1>
+    <div class="form-container">
+        
+        <form action="" method="post">
 
-    <?=  isset($message_erreur) ? $message_erreur : null ?>
+            <h3>Modifier Mes Informations</h3>
 
-    <form action="" method="post">
-        <label for="email">Nouveau Email:</label>
-        <input type="email" name="email" value="<?= $email ?> " required>
-        <label for="telephone">Nouveau Telephone:</label>
-        <input type="text" name="telephone" value="<?= $telephone ?>" required pattern="^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$">
-        <input type="submit" name="modifier" value="Modifier">
-    </form>
-    
+            <label for="email">Nouveau Email:</label>
+            <div class="erreur"><?php  if(isset($erreur_mail)) { echo $erreur_mail; }  ?></div>
+            <input type="email" name="email" value="<?php  if(isset($info_user['email'])) { echo $info_user['email']; }  ?>" class="box">
 
+            <label for="telephone">Nouveau Telephone:</label>
+            <div class="erreur"><?php  if(isset($erreur_telephone)) { echo $erreur_telephone; }  ?></div>
+            <input type="text" name="telephone" value="<?php  if(isset($info_user['telephone'])) { echo $info_user['telephone']; }  ?>"  pattern="^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$" class="box">
+
+            <input type="submit" name="modifier" value="Modifier Profil" class="btn">
+
+        </form>
+
+    </div>
+
+    <?php include_once('footer.php'); ?>
 </body>
 </html>

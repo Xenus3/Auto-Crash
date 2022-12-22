@@ -31,9 +31,9 @@ if (!isset($_SESSION['id'])){
             $nouveau_mdp = securiser($nouveau_mdp);
             $confirm_mdp = securiser($confirm_mdp);
 
-            if(!isset($mdp)) {
+            if(empty($mdp)) {
                 $valide = false;
-                $message_erreur = "Ce champ ne peut etre vide";
+                $erreur_mdp = "Ce champ ne peut pas etre vide";
             }else{
                 $requete = $DB->prepare('SELECT mot_de_passe from utilisateurs where id_utilisateur = ?');
 
@@ -44,11 +44,11 @@ if (!isset($_SESSION['id'])){
                 if(isset($requete['mot_de_passe'])) {
                     if(!password_verify($mdp, $requete['mot_de_passe'])) {
                         $valide = false;
-                        $message_erreur = "Ce mot de passe est incorrecte";
+                        $erreur_mdp = "Ce mot de passe est incorrecte";
                     }
                 }else{
                     $valide = false;
-                    $message_erreur = "Ce champ ne peut etre vide";
+                    $erreur_mdp = "Ce champ ne peut etre vide";
                 }
             }
 
@@ -57,17 +57,20 @@ if (!isset($_SESSION['id'])){
             if($valide) {
                 if(empty($nouveau_mdp)) {
                     $valide = false;
-                    $message_erreur = "Ce champ ne peut etre vide";
+                    $erreur_nmdp = "Ce champ ne peut pas etre vide";
+                }elseif(empty($confirm_mdp)) {
+                    $valide = false;
+                    $erreur_conf = "Ce champ ne peut pas etre vide";
                 }elseif($nouveau_mdp <> $confirm_mdp) {
                     $valide = false;
-                    $message_erreur = "Le mot de passe et sa confirmation ne correspondent pas";
+                    $erreur_conf  = "Le mot de passe et sa confirmation ne correspondent pas";
                 }elseif($nouveau_mdp === $mdp) {
                     $valide = false;
-                    $message_erreur = "Le nouveau mot de passe ne peut etre le meme que l'ancient mot de passe";
+                    $erreur_nmdp  = "Le nouveau mot de passe ne peut etre le meme que l'ancient mot de passe";
                 }
             }
 
-            // insertion du nouveau mot de passe
+            // insertion du nouveau mot de passe dans la base de donnee
 
             if($valide) {
 
@@ -97,28 +100,39 @@ if (!isset($_SESSION['id'])){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/style.css">
+    <script src="assets/script.js" defer></script>
     <title>Modifier Mon Compte</title>
 </head>
 <body>
 
-    <?php  include ('navbar.php') ?>
+<?php include_once('logo.php'); include_once('menu.php'); ?>
 
-    <h1>Modifier Mes Informations</h1>
-
-    <?= isset($message_erreur) ? $message_erreur : null ?>
+<div class="form-container">
    
-
-
     <form action="" method="post">
+
+        <h3>Modifier Mon Mot de Passe</h3>
+
         <label for="email">Mot de passe actuel:</label>
-        <input type="password" name="mdp" value="">
+        <div class="erreur"><?php  if(isset($erreur_mdp)) { echo $erreur_mdp ; }  ?></div>
+        <input type="password" name="mdp" value="" class="box">
+
         <label for="nouveau_mdp">Nouveau mot de passe:</label>
-        <input type="password" name="nouveau_mdp" value="">
+        <div class="erreur"><?php  if(isset($erreur_nmdp)) { echo $erreur_nmdp; }  ?></div>
+        <input type="password" name="nouveau_mdp" value="" class="box">
+
         <label for="confirm_mdp">Confirmez mot de passe:</label>
-        <input type="password" name="confirm_mdp" value="">
-        <input type="submit" name="modifier_mdp" value="Modifier mot de passe">
+        <div class="erreur"><?php  if(isset($erreur_conf)) { echo $erreur_conf; }  ?></div>
+        <input type="password" name="confirm_mdp" value="" class="box">
+
+        <input type="submit" name="modifier_mdp" value="Modifier mot de passe" class="btn">
+
     </form>
-    
+ 
+</div>
+
+<?php include_once('footer.php'); ?>
 
 </body>
 </html>

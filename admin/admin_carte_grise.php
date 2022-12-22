@@ -47,12 +47,13 @@ if(isset($_GET['id']) && $_GET['action'] === "telecharge") {
     echo 'Could not create a zip archive';
     }
 
-    // on envoit le fichier ZIP a l'administrateur
+    // on envoit le fichier ZIP a l'administrateur en telechargement
 
     header('Content-Type: application/zip');
     header('Content-disposition: attachment; filename='.$zip_file_name);
     header('Content-Length: ' . filesize($zip_file_name));
     readfile($zip_file_name);
+    unlink($zip_file_name);
 }
 
 if(isset($_POST['nom']) or isset($_POST['prenom']) or isset($_POST['date']) or isset($_POST['prestation'])) { 

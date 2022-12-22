@@ -30,7 +30,7 @@ if(isset($message)){
 <header class="header_menu"> 
 <div class="flex">
 <?php 
-   if(!isset($_SESSION['id_utilisateur'])){
+   if(!isset($_SESSION['id'])){
 
     
 ?>

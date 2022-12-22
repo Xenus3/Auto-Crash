@@ -26,7 +26,7 @@ if(!empty($_POST)){
         $confemail = secure($confemail);
         $matricule = secure($matricule);
         $commentaire = secure($commentaire);
-        $prestation = secure($prestation);
+        
 
         // verifications du nom
 
@@ -100,17 +100,7 @@ if(!empty($_POST)){
             $valide = false;
             $erreur_matricule = "Le champ du matricule ne peut pas etre vide!";
         } 
-        /*elseif(grapheme_strlen($matricule)<3){ // graphem_strLen permet de reduire les emot ou caractères spéciaux à 1
-
-            $valide = false;
-            $message_erreur = "le nom doit faire au moins 2 caractères";
-
-        }
-           elseif(grapheme_strlen($matricule)>=30){ 
-            $valide = false;
-            $message_erreur = "ce nom doit faire au plus de 31 caractères (" . grapheme_strlen($nom) . "/30)";
-
-        }*/
+       
         
 
         // verifications du commentaire
@@ -134,7 +124,7 @@ if(!empty($_POST)){
         // si les verifications on reussi
 
         if($valide){
-            $req = $DB->prepare("SELECT id_utilisateur FROM `utilisateurs` WHERE email = ?");
+            $req = $DB->prepare("SELECT id_utilisateur FROM utilisateurs WHERE email = ?");
             $req->execute(array($email));
             $req = $req->fetch();
 
@@ -146,24 +136,13 @@ if(!empty($_POST)){
                 $status = 0;
                 $utilisateur = $req['id_utilisateur'];
 
-                switch($prestation) {
-                    case "reparation":
-                        $prestation = 1;
-                        break;
-                    case "depannage":
-                        $prestation = 2;
-                        break;
-                    case "casse":
-                        $prestation = 3;
-                        break;
-
-                }
+                
 
                 //on cree une demande dand notre tableau demandes_devis
 
-                $requete = $DB->prepare('INSERT INTO demandes_devis(date_demande, commentaire, status, id_type_prestation, id_utilisateur) VALUES (?, ?, ?, ?, ?)'); 
+                $requete = $DB->prepare('INSERT INTO demandes_devis(date_demande, commentaire, matricule, status, id_utilisateur) VALUES (?, ?, ?, ?, ?)'); 
 
-                $requete->execute(array($date, $commentaire, $status, $prestation, $utilisateur));
+                $requete->execute(array($date, $commentaire, $matricule, $status, $utilisateur));
 
             }else{
 
@@ -185,35 +164,25 @@ if(!empty($_POST)){
                     $status = 0;
                     $utilisateur = $req['id_utilisateur'];
     
-                    switch($prestation) {
-                        case "reparation":
-                            $prestation = 1;
-                            break;
-                        case "depannage":
-                            $prestation = 2;
-                            break;
-                        case "casse":
-                            $prestation = 3;
-                            break;
-    
-                    }
+                    
                     // creer la demande de devis
 
-                    $requete = $DB->prepare('INSERT INTO demandes_devis(date_demande, commentaire, status, id_type_prestation, id_utilisateur) VALUES (?, ?, ?, ?, ?)'); 
-    
-                    $requete->execute(array($date, $commentaire, $status, $prestation, $utilisateur));
+                    $requete = $DB->prepare('INSERT INTO demandes_devis(date_demande, commentaire, matricule, status, id_utilisateur) VALUES (?, ?, ?, ?, ?)'); 
+
+                    $requete->execute(array($date, $commentaire, $matricule, $status, $utilisateur));
 
                 }
             }
 
-        // envoyer un mail a l'adminsitrateur
+        // envoit de mails 
 
         $mail = $DB->prepare("SELECT * FROM utilisateurs WHERE email=?");
         $mail->execute(array($email));
 
         $mail = $mail->fetch();
 
-        $mail_to = $mail['email'];
+        $mail_to_user = $mail['email'];
+        $mail_to_admin = "acefofo@yahoo.com";
 
         // Création du header de l'e-mail.
 
@@ -225,9 +194,22 @@ if(!empty($_POST)){
 
         //Ajout du message au format HTML 
 
-        $contenu = $commentaire;
-        			
-        mail($mail_to, "Demande de devis", $contenu, $header);
+        $contenu_admin = $commentaire;
+        $contenu_user = "
+        <p>Bonjour $prenom $nom</p>
+      
+        <p>Votre demande de devis a bien été prise en compte et nous allons la traiter dans les meilleurs delais</p>
+        
+        <p>Cordialement</p>";
+        
+        // mail a l'admin
+
+        mail($mail_to_admin, "Nouvelle Demande de Devis", $contenu_admin, $header);
+
+        // mail de confirmation a l'utilisateur
+
+        mail($mail_to_user, "Demande Confirmeé", $contenu_user, $header);
+
 
         header('location: index.php');
         exit;
@@ -285,21 +267,11 @@ if(!empty($_POST)){
             <input type="text" name="confemail" class="box" value="<?php if(isset($confemail)){echo $confemail;} ?>">
 
             <label for="matricule">Matricule:</label>
-            <div class="erreur"><?php if(isset($erreur_matrivcule)){echo $erreur_matrivcule;}?></div>
+            <div class="erreur"><?php if(isset($erreur_matricule)){echo $erreur_matricule;}?></div>
             <input type="text" name="matricule" class="box" value="<?php if(isset($matricule)){echo $matricule;} ?>">
 
             <label for="commentaire">Commentaire:</label>
             <textarea type="textarea" rows="10" name="commentaire" class="box" wrap><?php if(isset($commentaire)){echo $commentaire;} ?></textarea>
-
-            <div class="bttn">
-            <label for="prestation">Prestation concerneé:</label>
-            <select id="prestation" name="prestation" required>
-            <option value="" selected disabled>--Vueillez choisir une option--</option>
-            <option value="reparation">Reparation</option>
-            <option value="depannage">Depanage</option>
-            <option value="casse">Casse</option>
-            </select>
-            </div>
 
             <div class="bttn">
             <input type="submit" name="devis" value="Soumettre Demande" class="btn">

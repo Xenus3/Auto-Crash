@@ -1,79 +1,46 @@
-<!DOCTYPE html>
-    <html lang="en">
-      <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>PayPal Standard Payments Integration | Client Demo</title>
-      </head>
-
-      <body>
+<div id="smart-button-container">
+      <div style="text-align: center;">
         <div id="paypal-button-container"></div>
-        <!-- Sample PayPal credentials (client-id) are included -->
-        <script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD&intent=capture&enable-funding=venmo" data-sdk-integration-source="integrationbuilder"></script>
+      </div>
+    </div>
+  <script src="https://www.paypal.com/sdk/js?client-id=sb&enable-funding=venmo&currency=USD" data-sdk-integration-source="button-factory"></script>
+  <script>
+    function initPayPalButton() {
+      paypal.Buttons({
+        style: {
+          shape: 'rect',
+          color: 'gold',
+          layout: 'vertical',
+          label: 'checkout',
+          
+        },
 
-        <script>
-          const fundingSources = [
-            paypal.FUNDING.PAYPAL,
-              paypal.FUNDING.VENMO,
-              paypal.FUNDING.CARD
-            ]
+        createOrder: function(data, actions) {
+          return actions.order.create({
+            purchase_units: [{"amount":{"currency_code":"USD","value":1}}]
+          });
+        },
 
-          for (const fundingSource of fundingSources) {
-            const paypalButtonsComponent = paypal.Buttons({
-              fundingSource: fundingSource,
+        onApprove: function(data, actions) {
+          return actions.order.capture().then(function(orderData) {
+            
+            // Full available details
+            console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
 
-              // optional styling for buttons
-              // https://developer.paypal.com/docs/checkout/standard/customize/buttons-style-guide/
-              style: {
-                shape: 'rect',
-                height: 40,
-              },
+            // Show a success message within this page, e.g.
+            const element = document.getElementById('paypal-button-container');
+            element.innerHTML = '';
+            element.innerHTML = '<h3>Thank you for your payment!</h3>';
 
-              // set up the transaction
-              createOrder: (data, actions) => {
-                // pass in any options from the v2 orders create call:
-                // https://developer.paypal.com/api/orders/v2/#orders-create-request-body
-                const createOrderPayload = {
-                  purchase_units: [
-                    {
-                      amount: {
-                        value: '88.44',
-                      },
-                    },
-                  ],
-                }
+            // Or go to another URL:  actions.redirect('thank_you.html');
+            
+          });
+        },
 
-                return actions.order.create(createOrderPayload)
-              },
-
-              // finalize the transaction
-              onApprove: (data, actions) => {
-                const captureOrderHandler = (details) => {
-                  const payerName = details.payer.name.given_name
-                  console.log('Transaction completed!')
-                }
-
-                return actions.order.capture().then(captureOrderHandler)
-              },
-
-              // handle unrecoverable errors
-              onError: (err) => {
-                console.error(
-                  'An error prevented the buyer from checking out with PayPal',
-                )
-              },
-            })
-
-            if (paypalButtonsComponent.isEligible()) {
-              paypalButtonsComponent
-                .render('#paypal-button-container')
-                .catch((err) => {
-                  console.error('PayPal Buttons failed to render')
-                })
-            } else {
-              console.log('The funding source is ineligible')
-            }
-          }
-        </script>
-      </body>
-    </html>
+        onError: function(err) {
+          console.log(err);
+        }
+      }).render('#paypal-button-container');
+    }
+    initPayPalButton();
+  </script>

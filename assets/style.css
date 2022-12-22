@@ -877,3 +877,41 @@ font-size: 1.8rem;
   .main {
     display: block;
   }
+
+.admin_panneau{
+    display:flex;
+    width: 80%;
+    height: 500px;
+    margin : 0 auto;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.admin_panneau .panneau {
+    width: 30%;
+    height: 200px;
+    background-color: var(--blue); 
+    font-size: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    justify-items: center;
+    text-align: center;
+    border-radius: 20px;
+}
+
+
+.admin_panneau .panneau .conteur {
+    background-color: var(--red) ;
+    width: 40px;
+    height: 40px;
+    margin: 0 auto;
+    border-radius: 5px;
+}
+
+a.fill-div {
+    display: block;
+    height: 100%;
+    width: 100%;
+    text-decoration: none;
+}

@@ -19,7 +19,7 @@ if(isset($_SESSION['id'])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <link rel="stylesheet" href="assets/style.css">
-    
+    <script src="assets/script.js" defer></script>
     <title>Document</title>
 </head>
 <body >
@@ -31,7 +31,8 @@ include_once('menu.php');?>
 <br />
 
 
-<div class= "content-descript"><div class="descript">
+<div class= "content-descript">
+    <div class="descript">
     <div class="title-tab">
 <h3><span> Qui sommes nous ? </span></h3>
 </div>
@@ -72,6 +73,6 @@ Mécanicien
 
 
 <?php include_once('footer.php'); ?>
-<script src="assets/script.js"></script>
+
 </body>
 </html>

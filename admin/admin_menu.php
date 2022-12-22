@@ -2,17 +2,12 @@
 
 include_once('../inclure.php');
 
-
-
-if(isset($message)){
-    foreach($message as $message){ //pour afficher les messages d'erreurs
-        echo  '
-        <div class="message">
-    <span> '.$message.' </span>
-    <i class="fas fa-times" onclick="this.parentElement.remove();"></i>
-          </div>';
-    }
+if(!isset($_SESSION['id']) or !in_array($_SESSION['role'], [1,2])){
+    header('location:index.php');
+    exit;
 }
+
+
 
 ?>
 
@@ -30,49 +25,17 @@ if(isset($message)){
 
 <header class="header"> 
 <div class="flex">
-<?php 
-   if(!isset($_SESSION['id_utilisateur'])){
 
-    
-?>
-<nav class="navbar">
-    <a href="admin_accueil.php" class="nav-link">Acceuil</a>
-    <a href="admin_carte_grise.php" class="nav-link">Carte Grise</a>
-    <a href="admin_decalaminage.php" class="nav-link">Decalaminage</a>
-    <a href="admin_utilisateurs.php" class="nav-link">Utilisateurs</a>
-    <a href="admin_contact.php" class="nav-link">Contact</a>
-    <a href="../index.php" class="nav-link">Retour au site</a>
-    </nav>
-
-     <div class="icons">
-    <div id="menu-btn" class="fas fa-bars"></div>
-</div>
-
-<?php 
-}
-else{
-
- ?>
-
-<nav class="navbar">
-    <a href="admin_accueil.php" class="nav-link">Acceuil</a>
-    <a href="admin_carte_grise.php" class="nav-link">Carte Grise</a>
-    <a href="admin_decalaminage.php" class="nav-link">Rendez-vous</a>
-    <a href="admin_utilisateurs.php" class="nav-link">Utilisateurs</a>
-    <a href="admin_messages.php" class="nav-link">Contact</a>
-    <a href="../index.php" class="nav-link">Retour au site</a>
+    <nav class="navbar">
+        <a href="admin_accueil.php" class="nav-link">Panneau d'Administration</a>
+        <a href="../index.php" class="nav-link">Retour au site</a>
 
 </nav>
-
-
-
-
- <div class="icons">
+    <div class="icons">
     <div id="menu-btn" class="fas fa-bars"></div>
     </div>
 
-<?php
-}?>
+
 
 
 

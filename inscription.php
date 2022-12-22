@@ -300,7 +300,7 @@ include_once('menu.php');?>
     <button type="submit" name="connexion" class="btn">Connexion </button>
 
     
-    <a href="forgot_password.php">Mot de passe oublié ? </a>
+    <a href="mdp_oublie.php">Mot de passe oublié ? </a>
 
 
 

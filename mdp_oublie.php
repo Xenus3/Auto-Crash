@@ -2,7 +2,7 @@
 
 require_once('inclure.php');
 
-if(isset($_SERVER['id_utilisateur'])) {
+if(isset($_SESSION['id'])) {
     header('location: index.php');
     exit;
 }
@@ -53,7 +53,7 @@ if(!empty($_POST)) {
                                                 
             mail($email, 'Mot de passe oublié', $contenu, $header);
 
-            header('location: connexion.php');
+            header('location: index.php');
 
             $_SESSION['email'] = $email;
             $_SESSION['token'] = $token;
@@ -75,18 +75,36 @@ if(!empty($_POST)) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/13b8658640.js" crossorigin="anonymous"></script>
+    
+    <link rel="stylesheet" href="assets/style.css">
+    <script src="assets/script.js" defer></script>
+   
     <title>Mot de passe oublié</title>
 </head>
 <body>
 
-    <?php  include ('navbar.php') ?>
+<?php include_once('logo.php'); include_once('menu.php'); ?>
 
-    <h1>Veuillez renseigner votre adresse mail</h1>
+    
+<div class="form-container">
 
     <form action="" method="post">
-        <input type="email" name="email">
-        <input type="submit" value="Soumettre" name="modifier_mdp">
+
+        <h3>Mot de Passe Oublié</h3>
+
+        <label for="email">Vueillez renseigner votre adresse mail:</label>
+        <input type="email" name="email" class="box">
+
+        <p><i class="fa-light fa-circle-exclamation"></i>une fois votre demande soumise et si votre mail correspond a l'un de nos comptes vous allez recevoir un mail pour choisir un nouveau mot de passe</p>
+
+        <input type="submit" value="Soumettre" name="modifier_mdp" class="btn">
+
     </form>
-    
+
+</div>
+
+<?php include_once('footer.php'); ?>
+   
 </body>
 </html>
