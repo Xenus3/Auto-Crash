@@ -41,48 +41,7 @@ $requete_5 = $requete_5->fetch();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <link rel="stylesheet" href="../assets/style.css">
     <script src="../assets/script.js" defer></script>
-    <script src='../calendrier/dist/index.global.js'></script>
-    <script>
-
-      document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridMonth',
-          headerToolbar: {
-      center: 'addEventButton'
-    },
-    customButtons: {
-      addEventButton: {
-        text: 'Ajouter evenement ',
-        click: function() {
-          var dateStr = prompt('Enter a date in YYYY-MM-DD format');
-          var date = new Date(dateStr + 'T00:00:00'); // will be in local time
-
-          if (!isNaN(date.valueOf())) { // valid?
-            calendar.addEvent({
-              title: 'dynamic event',
-              start: date,
-              allDay: true
-            });
-            alert('Great. Now, update your database...');
-          } else {
-            alert('Invalid date.');
-          }
-        }
-      }
-    },
-          locale: 'fr',
-          plugin: "interaction",
-          plugin: "core",
-          plugin: "daygrid",
-          plugin: "timegrid",
-          selectable: true,
-          editable: true
-        });
-        calendar.render();
-      });
-
-    </script>
+    
     <title>Document</title>
 </head>
 <body>
@@ -121,7 +80,7 @@ include_once('../admin/admin_menu.php');?>
     
 </div>
 
-<div id='calendar'></div>
+
     
 </body>
 </html>
