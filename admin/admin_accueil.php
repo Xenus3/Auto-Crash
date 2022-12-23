@@ -47,7 +47,7 @@ $requete_5 = $requete_5->fetch();
 <body>
 
 <?php 
-include_once('../logo.php');
+
 include_once('../admin/admin_menu.php');?>
 
 <div class="admin_panneau">

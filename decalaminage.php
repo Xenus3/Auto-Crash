@@ -239,51 +239,100 @@ include_once('logo.php');
 include_once('menu.php');
 
 ?>
-<div class="form-container">
+<div class="title"> Rendez-vous decalaminage <div class="title-nav">vous-êtes ici : <a href="index.php" class="nav-link">Acceuil</a>/ <span>Decalaminage</span></div></div>
+<br />
+
+<div class= "content-descript">
+    <div class="descript">
+    <div class="title-tab">
+<h3><span> Décalaminage moteur </span></h3>
+</div>
+
+
+Le décalaminage moteur est une intervention en profondeur sur votre véhicule afin d'éliminer la calamine incrustée. Ce mélange de suie et de particules non brûlés va encrasser de nombreuses pièces essentielles au bon fonctionnement du moteur et notamment à la bonne combustion de celui-ci.
+<br />
+
+Pour plus d'informations sur le site <a href="https://www.carbon-cleaning.com/" target="_blank">CARBON CLEANING</a></div> 
+
+
+<img src="image/image.png">
+</div></div>
+</div>
+
+
+<div class="form-container-contact">
     
-    <form action="" method="post" enctype="multipart/form-data">
+  <form method="post">
 
-        <h3>Rendez-vous pour Decalaminage</h3>
+  <h3><span> Reservez une date pour decalaminage</span></h3>
 
-        <label for="nom">Nom:</label>
-        <div class="erreur"><?php if(isset($erreur_nom)){echo $erreur_nom;}?></div>
-        <input type="text" name="nom" value="<?php if(isset($nom)){echo $nom;}?>" class="box"> 
+  <div class="title"> Informations <span>*</span></div>
+<div class="form-contact"> 
 
+            <div class="form-div">
+          <label for="nom">Nom:</label>
+          <div></div>
+        <input type="text" name="nom" class="box"> </div>
+        <div class="erreur"><?php if(isset($err_nom)){echo $err_nom;}?></div>
+
+        
+        <div class="form-div">
         <label for="prenom">prenom:</label>
-        <div class="erreur"><?php if(isset($erreur_prenom)){echo $erreur_prenom;}?></div>
-        <input type="text" name="prenom" value="<?php if(isset($prenom)){echo $prenom;}?>" class="box"> 
+        <div></div>
+        <input type="text" name="prenom" class="box"> 
+        <div class="erreur"><?php if(isset($err_nom)){echo $err_nom;}?></div>
+         </div>
+        </div>
 
-        <label for="tel">Téléphone:</label>
-        <div class="erreur"><?php if(isset($erreur_tel )){echo $erreur_tel ;}?></div>
-        <input type="text" name="telephone" value="<?php if(isset($telephone)){echo $telephone;}?>"  class="box" pattern="^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$">
+
+        <div class="title"> Contact <span>*</span></div>
+        <div class="form-contact"> 
+        <div class="form-div">
 
         <label for="email">Mail:</label>
-        <div class="erreur"><?php if(isset($erreur_mail)){echo $erreur_mail;}?></div>
-        <input type="email" name="email" value="<?php if(isset($email)){echo $email;}?>"  class="box">
+        <div></div>
+        <input type="email" name="email"  class="box"> </div>
+        <div class="erreur"><?php if(isset($err_email)){echo $err_email;}?></div>
+
+
         
-        <label for="tel">Date Souhaiteé</label>
-        <input type="date" name="daterdv"  class="box" min="<?php echo date("Y-m-d"); ?>" required> 
+        <div class="form-div">
+        <label for="telephone">Téléphone:</label>
+        <div></div>
+        <input type="text" name="telephone"  class="box"> </div>
+        <div class="erreur"><?php if(isset($err_telephone)){echo $err_telephone;}?></div>
+        </div>
 
+        <div class="title"> Date et jour souhaité <span>*</span></div>
+        <div class="form-contact"> 
+        <div class="form-div">
+
+        <label for="tel">Date Souhaité</label>
+        <div></div>
+        <input type="date" name="daterdv"  class="box"></div> 
+        <div class="erreur"><?php if(isset($err_email)){echo $err_email;}?></div>
+
+        <div class="form-div">
         <label for="tel">Horraire souhaité:</label>
-        <input type="time" name="heurerdv"  class="box" required> 
-
-        <div class="bttn">
-        <select id="prestation" name="prestation" class="input" required>
-        <option value="" selected disabled>Choisissez votre forfait:</option>
-        <option value="4">65€ pour 30min</option>
-        <option value="5">95€ pour 1h</option>
-        <option value="6">125€ pour 1h30</option>
-        </select>
+        <div></div>
+        <input type="time" name="heurerdv"  class="box"> </div>
+        <div class="erreur"><?php if(isset($err_email)){echo $err_email;}?></div>
         </div>
 
-        <div class="bttn">
-        <button type="submit" name="decalaminage" class="btn">Prendre Rendez-Vous</button>
-        </div>
+    <div class="title"> Forfait<span>*</span></div>
 
-
-       
-
-    </form>
+    <label for="forfait">Forfait:</label>
+    <select id="prestation" name="prestation" class="box"  required>
+    <option value="" selected disabled>Choisissez votre forfait:</option>
+    <option value="1">65€ pour 30min</option>
+    <option value="2">95€ pour 1h</option>
+    <option value="3">125€ pour 1h30</option>
+    </select>
+    </div>
+    <div class="btn_contact">
+    <button type="submit" name="rendez-vous" class="btn-contact">Nous Contacter</button>
+    </div>
+</form>
 </div>
 
 <?php include_once('footer.php'); ?>

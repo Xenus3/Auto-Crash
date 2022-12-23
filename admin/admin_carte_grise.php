@@ -107,45 +107,57 @@ if(isset($_POST['nom']) or isset($_POST['prenom']) or isset($_POST['date']) or i
 </head>
 <body>
 <?php
-include_once('../logo.php');
+
 include_once('../admin/admin_menu.php');
 ?>
-    <form action="" method="post">
-        <h3>Affiner votre recherche:</h3>
-        <input type="text" name="nom" placeholder="Par Nom">
-        <input type="text" name="prenom" placeholder="Par Prenom">
-        <input type="text" name="matricule" placeholder="Par Matricule">
-        <label for="date">Date de la demande:</label>
-        <input type="date" name="date" placeholder="Par Date">
-        <label for="prestation">Prestation demandeé:</label>
-        <select name="prestation" id="prestations">
-            <option value="" selected desactivated>--Veuller choisir une option--</option>
-            <option value="7">Demande carte grise pour vehicule d'occasion etranger ou vehicule neuf</option>
-            <option value="8">Demande de carte grise pour vehicule d'occasion Francais</option>
-            <option value="9">Changement d'adresse sur la carte grise</option>
-            <option value="10">Changement de titulaire de la carte grise</option>
-        </select>
-        <input type="submit" name="filtrer" value="Filtrer recherche">
-        <a href="http://localhost/php/auto-crash/admin/admin_carte_grise.php">Reinitialiser</a>
-    </form>
+  <div class="recherche">
 
-    <div class="demandes_cg">
-        <h1>Demandes Carte Grise</h1>
-        <table>
-            <tr>
-                <th>Nom</th>
-                <th>Prenom</th>
-                <th>Date de la demande</th>
-                <th>Matricule</th>
-                <th>Type de prestation</th>
-                <th></th>
-                <th></th>
-            </tr>
-            <?php foreach($resultat as $donnee){ if($donnee['status'] === 0 && in_array($donnee['id_type_prestation'], [7, 8, 9, 10])) {echo "<tr><td>{$donnee['nom']}</td><td>{$donnee['prenom']}</td><td>{$donnee['date_demande']}</td><td>{$donnee['matricule']}</td><td>{$donnee['description']}</td><td><a href='admin_carte_grise.php?id={$donnee["id_demande_prestation"]}&action=traite'>demande traité</a></td><td><a href='admin_carte_grise.php?id={$donnee["id_demande_prestation"]}&action=telecharge'>telecharger fichiers annexe</a></td></tr>";}} ?>
-        </table>
-           
-        
-    </div>
+<form action="" method="post">
+    <h3>Affiner votre recherche:</h3>
+    <input type="text" name="nom" placeholder="Par Nom" class="box">
+    <input type="text" name="prenom" placeholder="Par Prenom" class="box" >
+    <label for="date">Date de la demande:</label>
+    <input type="date" name="date" placeholder="Par Date" class="box" >
+    <label for="prestation">Prestation demandeé:</label>
+    <select name="prestation" id="prestations" class="box">
+        <option value="" selected desactivated>--Veuller choisir une option--</option>
+        <option value="7">Demande carte grise pour vehicule d'occasion etranger ou vehicule neuf</option>
+        <option value="8">Demande de carte grise pour vehicule d'occasion Francais</option>
+        <option value="9">Changement d'adresse sur la carte grise</option>
+        <option value="10">Changement de titulaire de la carte grise</option>
+    </select>
+    <input type="submit" name="filtrer" value="Affiner recherche" class="btn">
+    <a href="http://localhost/php/auto-crash/admin/admin_carte_grise.php" class="btn">Reinitialiser</a>
+
+</form>
+</div>
+
+
+
+
+
+<div class="title-tab">
+<h3><span> Carte grise</span></h3>
+</div>
+
+<table>
+<thead>
+<tr>
+<th>Nom</th>
+<th>Prenom</th>
+<th>Date de la demande</th>
+<th>Type de prestation</th>
+</tr>
+</thead>
+<tbody>
+
+<?php foreach($resultat as $donnee){ if($donnee['status'] === 0 && in_array($donnee['id_type_prestation'], [7, 8, 9, 10])) {echo "<tr><td>{$donnee['nom']}</td><td>{$donnee['prenom']}</td><td>{$donnee['date_demande']}</td><td>{$donnee['description']}</td><td><a href='admin_carte_grise.php?id={$donnee["id_demande_prestation"]}&action=traite'>demande traité</a></td><td><a href='admin_carte_grise.php?id={$donnee["id_demande_prestation"]}&action=telecharge'>telecharger fichiers annexe</a></td></tr>";}} ?>
+
+</tbody>
+</table>
+
+    
+</div>
 
     <?php include_once('../footer.php'); ?>
     

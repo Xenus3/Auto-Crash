@@ -40,12 +40,28 @@ switch($requete_utilisateur['id_role']) {
 
 <?php include_once('logo.php'); include_once('menu.php'); ?>
 
-    <h1>Profile de <?= $_SESSION['prenom']." ".$_SESSION['nom'] ?></h1>
-    <div>Email: <?= $requete_utilisateur['email'] ?></div>
-    <div>Telephone: <?= $requete_utilisateur['telephone'] ?></div>
-    <div>Role: <?= $requete_utilisateur['id_role'] ?></div>
-    <div><a href="modifier_profil.php">Modifier Mon Profile</a></div>
-    <div><a href="modifier_MDP.php">Modifier Mon Mot de Passe</a></div>
+<div class="container-profil">
+<h3><span>Profile de <?= $requete_utilisateur['nom'] ?></span></h3>
+
+    <div class="profil"> 
+
+    <div><span>Email:</span> <?= $requete_utilisateur['email'] ?></div><br />
+    <div><span>Telephone:</span> <?= $requete_utilisateur['telephone'] ?></div><br />
+    <div><span>Adresse:</span> <?= $requete_utilisateur['adresse'] ?></div><br />
+    <div><span> Code Postal: </span><?= $requete_utilisateur['code_postale'] ?></div><br />
+    <div><span> Ville:</span> <?= $requete_utilisateur['ville'] ?></div><br />
+    <div><span>Pays: </span><?= $requete_utilisateur['pays'] ?></div><br />
+    </div>
+    
+    
+    <div class="btn-contact2"><a href="modifier_profil.php" class="btn-contact">Modifier Mon Profile</a>
+    <a href="modifier_mdp.php" class="btn-contact">Modifier Mon Mot de Passe</a></div>
+   </div>
+
+</form>
+</div><br />
+<br />
+<br />
 
 <?php include_once('footer.php'); ?>
 

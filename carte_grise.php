@@ -298,35 +298,123 @@ include_once('logo.php');
 include_once('menu.php');
 
 ?>
-<div class="form-container">
+
+<div class="title"> Carte grise  <div class="title-nav">vous-êtes ici : <a href="index.php" class="nav-link">Acceuil</a>/ <span>Carte grise</span></div></div>
+<br />
+
+    <div class= "content-descript">
+    <div class="descript">
+    <div class="title-tab">
+<h3><span> CARTE GRISE FRANCAISE </span></h3>
+</div>
+
+
+1. Carte grise du véhicule <br />
+2. Certificat de cession ou facture d'achat<br />
+3. Carte d'identité ou Passeport ou Extrait k-bis de moins de 2 ans pour les professionnels<br />
+4. Permis de conduire OBLIGATOIRE ou attestation provisoire d'obtention du permis correspondant a la catégorie du véhicule<br />
+5. Contrôle technique de moins de 6 mois pour les véhicules de plus de 4 ans<br />
+6. Justificatif de domicile de moins de 6 mois au nom du futur titulaire ( ou attestation d'hébergement + COPIE de la pièce d'identité de l'hébergeur)<br />
+7. Attestation d'assurance du véhicule <br /><br />
+
+    <div class="title-tab">
+<h3><span> CARTE GRISE ETRANGERE OU WW </span></h3>
+</div>
+
+1. Carte grise du véhicule ou déclaration de perte de carte grise<br />
+2. Certificat de conformité (ou attestation de réception à titre isolé ou à type communautaire)<br />
+3. Certificat de cession ou facture d'achat<br />
+4. Carte d'identité ou Passeport ou Extrait k-bis de moins de 2 ans pour les professionnels<br />
+5. Permis de conduire OBLIGATOIRE ou attestation provisoire d'obtention du permis correspondant a la catégorie du véhicule<br />
+6. Contrôle technique de moins de 6 mois pour les véhicules de plus de 4 ans<br />
+7. Justificatif de domicile de moins de 6 mois au nom du futur titulaire ( ou attestation d'hébergement + COPIE de la pièce d'identité de l'hébergeur)<br />
+8. Quitus fiscal (si le véhicule a été acheté à l'étranger)<br /><br />
+</div> 
+
+<img src="image/photo_2.jpeg">
+</div></div>
+
+
+<div class="content">
+<div class="content-q">
+    
+
+    <h4><span> Changement Adresse du Titulaire </span></h4>
+    
+        1. Carte grise du véhicule<br />
+        2. Carte d'identité ou Passeport ou Extrait k-bis de moins de 2 ans pour les professionnels<br />
+        3. Justificatif de domicile de moins de 6 mois au nom du futur titulaire ( ou attestation d'hébergement + COPIE de la pièce d'identité de l'hébergeur)<br />
+        5. Attestation d'assurance du véhicule<br /><br />
+    <h5>A Savoir!</h5>
+    <ul>
+        i ancien format d'immatriculation, un nouveau numéro de plaques vous sera réattribué avec remise de l'ancien titre. Vous recevrez alors un certificat provisoire CPI. N'oubliez pas de changer vos plaques d'immatriculation! <br />
+        Si nouveau format, vous recevrez une étiquette à coller sur votre carte grise actuelle.
+    </ul>
+    <h4><span> Declaration de Cession </span></h4>
+
+        1. L'ancienne carte grise barrée<br />
+        2. Le certificat de cession <b><a href="https://www.service-public.fr/particuliers/vosdroits/R20300" target="_blank">Cerfa n° 15776*02</a></b><br />
+        3. Certificat de non-gage<br />
+        4. Contrôle technique de moins de 6 mois<br /><br />
+        
+
+    <p>Vous aurez aussi besoin de 2 fichiers CERFA : <b><a href="https://www.service-public.fr/particuliers/vosdroits/R1137" target="_blank">cerfa n°13757*03</a></b> et <b><a href="https://www.service-public.fr/particuliers/vosdroits/R13567" target="_blank">cerfa n°13750*07</a></b></p>
+</div>
+        </div>
+        </div>
+
+
+        <div class="form-container-contact">
     
     <form action="" method="post" enctype="multipart/form-data">
 
-        <h3>Carte grise</h3>
+        <h3><span> Carte grise</span></h3>
 
+    <div class="title"> Informations <span>*</span></div>
+
+
+
+    <div class="form-contact"> 
+            <div class="form-div">
         <label for="nom">Nom:</label>
+        <div></div>
+        <input type="text" name="nom" value="<?php if(isset($nom)){echo $nom;}?>" class="box"> </div>
         <div class="erreur"><?php if(isset($erreur_nom)){echo $erreur_nom;}?></div>
-        <input type="text" name="nom" value="<?php if(isset($nom)){echo $nom;}?>" class="box"> 
 
+            <div class="form-div">
         <label for="prenom">prenom:</label>
+        <div></div>
+        <input type="text" name="prenom" value="<?php if(isset($prenom)){echo $prenom;}?>" class="box"> </div>
         <div class="erreur"><?php if(isset($erreur_prenom)){echo $erreur_prenom;}?></div>
-        <input type="text" name="prenom" value="<?php if(isset($prenom)){echo $prenom;}?>" class="box"> 
+        </div>
 
+
+        <div class="title"> Contact <span>*</span></div>
+
+        <div class="form-contact"> 
+        <div class="form-div">
         <label for="tel">Téléphone:</label>
+        <div></div>
+        <input type="text" name="telephone" value="<?php if(isset($telephone)){echo $telephone;}?>"  class="box"></div>
         <div class="erreur"><?php if(isset($erreur_tel )){echo $erreur_tel ;}?></div>
-        <input type="text" name="telephone" value="<?php if(isset($telephone)){echo $telephone;}?>"  class="box" pattern="^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$">
 
+        <div class="form-div">
         <label for="email">Mail:</label>
+        <div></div>
+        <input type="email" name="email" value="<?php if(isset($email)){echo $email;}?>"  class="box"></div>
         <div class="erreur"><?php if(isset($erreur_mail)){echo $erreur_mail;}?></div>
-        <input type="email" name="email" value="<?php if(isset($email)){echo $email;}?>"  class="box">
+        </div>
 
+        <div class="form-div">
         <label for="matricule">Matricule:</label>
-            <div class="erreur"><?php if(isset($erreur_matricule)){echo $erreur_matricule;}?></div>
-            <input type="text" name="matricule" class="box" value="<?php if(isset($matricule)){echo $matricule;} ?>">
+        <div class="erreur"><?php if(isset($erreur_matricule)){echo $erreur_matricule;}?></div>
+        <input type="text" name="matricule" class="box" value="<?php if(isset($matricule)){echo $matricule;} ?>">
+        </div>
         
-        <div class="bttn">
+        <div class="form-div">
+        <div class="title"> Prestation et dossier <span>*</span></div>
         <label for="prestations">Veuillez choisir votre prestation:</label>
-        <select name="prestation" id="prestations" required>
+        <select name="prestation" id="prestations" required class="box">
             <option value="" selected desactivated>--Veuller choisir une option--</option>
             <option value="7">1ere immatriculation en France d'un vehicule acquis a l'etranger a 40 euro</option>
             <option value="8">Changement de titulaire de carte grise francaise a 25 euro</option>
@@ -334,17 +422,18 @@ include_once('menu.php');
             <option value="10">Chertificat de cession a 10 euro</option>
         </select>
         </div>
+        
 
 
-        <div class="bttn">
-        <label for="fichiers[]">Veuillez telecharger votre dossier:</label>
-        <input type="file" name="fichiers[]"  multiple directory="" webkitdirectory="" moxdirectory="" required/>
+         <div class="form-div">
+        <label for="fichiers">Veuillez telecharger votre dossier:</label>
+        <input type="file" name="fichiers[]" multiple directory="" webkitdirectory="" moxdirectory="" class="box" required/>
         </div>
 
-        <div class="bttn">
-        <input type="submit" name="carte_grise" value="Soumettre Demande" class="btn">
-        </div>
-
+ 
+        <div class="btn_contact">
+            <input type="submit" name="carte_grise" value="Soumettre Demande" class="btn-contact">
+            </div>
     </form>
 </div>
 

@@ -17,7 +17,9 @@ include_once('inclure.php');
   src="https://code.jquery.com/jquery-3.6.3.slim.js"
   integrity="sha256-DKU1CmJ8kBuEwumaLuh9Tl/6ZB6jzGOBV/5YpNE2BWc="
   crossorigin="anonymous" defer></script>
-  <!-- Quantcast Choice. Consent Manager Tag v2.0 (for TCF 2.0) -->
+
+  <!-- Quantcast Cookies. Consent Manager  -->
+
 <script type="text/javascript" async=true>
 (function() {
   var host = window.location.hostname;
@@ -178,7 +180,7 @@ include_once('inclure.php');
   }
 })();
 </script>
-<!-- End Quantcast Choice. Consent Manager Tag v2.0 (for TCF 2.0) -->
+<!-- fin de Quantcast Cookies. Consent Manager  -->
     <script src="assets/script.js" defer></script>
     <title>Document</title>
 </head>
@@ -187,7 +189,7 @@ include_once('inclure.php');
 include_once('logo.php');
 include_once('menu.php');?>
 
-    <div class="slider">
+<div class="slider">
         <img src="image/photo_4.jpeg" alt="img1" class="img__slider active" />
         <img src="image/photo_5.jpeg" alt="img2" class="img__slider" />
         <img src="image/photo_6.jpeg" alt="img3" class="img__slider" />
@@ -199,6 +201,81 @@ include_once('menu.php');?>
         </div>
     </div>
 
+
+    <div class="title-tab">
+<h3><span> Bienvenue sur auto-crash </span></h3>
+</div>
+
+
+<div class="container">
+<div class="polaroid">
+  <img src="image/photo_8.jpg" style="width:100%">
+  <div class="container2">
+  <p><a href="rendez-vous.php"> DECALAMINAGE </a></p>
+  </div>
+  </div>
+
+  <div class="polaroid">
+  <img src="image/photo_9.jpg" style="width:100%">
+  <div class="container2">
+  <p><a href="devis.php"> DEVIS </a></p>
+</div>
+</div>
+
+    <div class="polaroid">
+  <img src="image/photo_10.jpg" style="width:100%">
+  <div class="container2">
+  <p><a href="carte_grise.php"> CARTE GRISE </a></p>
+  </div>
+
+</div>
+</div>
+
+<div class="title"> Vous avez une question ?  <a href="contact.php" class="btn2"> NOUS CONTACTER </a> </div>
+<br />
+
+
+<div class= "content-descript">
+    <div class="descript">
+    <div class="title-tab">
+<h3><span> Qui sommes nous ? </span></h3>
+</div>
+
+Le Garage Autocrash est une entreprise familiale en activité depuis 1996 . Forte d'une expérience de plus de 30 ans elle intervient dans le secteur de l'entretien et la réparation de véhicules avec des employés qualifiés et passionnés
+Propose également la vente de véhicules d'occasion, révises et garanties </div> 
+
+<img src="image/img1.jpg">
+</div></div>
+
+
+<div class="title-tab">
+<h3><span> L'équipe</span></h3>
+</div>
+
+
+
+<div class="content-equip">
+<div class="content-equipe">
+<img src="image/avatar.png"><br />
+<span> Patrick </span><br />
+Gérant mécanicien </div>
+
+<div class="content-equipe">
+<img src="image/avatar.png"><br />
+<span> Mélissa </span> <br />
+Assistante de direction </div>
+
+<div class="content-equipe">
+<img src="image/avatar.png"><br />
+<span> Brenda </span><br />
+Chargé d'accueil </div>
+
+<div class="content-equipe">
+<img src="image/avatar.png"><br />
+<span> Kevin </span><br />
+Mécanicien 
+</div>
+</div>
 
 <?php include_once('footer.php'); ?>
 

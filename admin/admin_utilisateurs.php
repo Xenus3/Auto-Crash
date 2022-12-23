@@ -60,32 +60,48 @@ if(isset($_POST['nom']) or isset($_POST['prenom']) or isset($_POST['email']) or 
 </head>
 <body>
 <?php 
-include_once('../logo.php');
+
 include_once('admin_menu.php');
 ?>
-<h1>Liste des utilisateurs</h1>
+
+<div class="recherche">
     <form action="" method="post">
         <h3>Affiner votre recherche:</h3>
-        <input type="text" name="nom" placeholder="Par Nom">
-        <input type="text" name="prenom" placeholder="Par Prenom">
-        <input type="text" name="email" placeholder="Par Email">
-        <input type="text" name="role" placeholder="Par Role">
-        <input type="submit" name="filtrer" value="Filtrer recherche">
-        <a href="http://localhost/php/auto-crash/admin/admin_utilisateurs.php">Reinitialiser</a>
-    </form>
-    <table>
-        <tr>
-            <th>Nom</th>
-            <th>Prenom</th>
-            <th>Telephone</th>
-            <th>Email</th>
-            <th>Role</th>
-            <th></th>
-            <th></th>
-        </tr>
-        <?php foreach($resultat as $user){echo "<tr><td>".$user['nom']."</td><td>".$user['prenom']."</td><td>".$user['telephone']."</td><td>".$user['email']."</td><td>".$user['nom_role']."</td><td><a href='../dossiers/modifier.php?id={$user["id_utilisateur"]}' class='openButto'><strong>Modifier</strong></a></td><td><a href='admin_utilisateurs.php?id={$user["id_utilisateur"]}&action=supprimer'>Supprimer</a></td></tr>";} ?>
-    </table>
+        <input type="text" name="nom" placeholder="Par Nom" class="box">
+        <input type="text" name="prenom" placeholder="Par Prenom" class="box">
+        <input type="text" name="email" placeholder="Par Email" class="box">
+        <input type="text" name="role" placeholder="Par Role" class="box"> <br />
+        <input type="submit" name="filtrer" value="Affiner recherche" class="btn">
+        <a href="http://localhost/php/auto-crash/admin/admin_utilisateurs.php" class="btn">Reinitialiser</a>
 
+
+    </form>
+
+</div>
+
+
+<div class="title-tab">
+<h3><span> Profil </span></h3>
+</div>
+
+<table>
+<thead>
+<tr>
+<th>Nom</th>
+<th>Prenom</th>
+<th>Téléphone</th>
+<th>Email</th>
+<th>Role</th>
+<th>Modifier</th>
+<th>Supprimer</th>
+
+</tr>
+</thead>
+<tbody>
+
+        <?php foreach($resultat as $user){echo "<tr><td>".$user['nom']."</td><td>".$user['prenom']."</td><td>".$user['telephone']."</td><td>".$user['email']."</td><td>".$user['nom_role']."</td><td><a href='../dossiers/modifier.php?id={$user["id_utilisateur"]}' class='openButto'><strong>Modifier</strong></a></td><td><a href='admin_utilisateurs.php?id={$user["id_utilisateur"]}&action=supprimer'>Supprimer</a></td></tr>";} ?>
+</tbody>
+</table>
     
 
 <?php include_once('../footer.php'); ?>

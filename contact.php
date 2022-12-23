@@ -230,36 +230,74 @@ include_once('menu.php');
 
 <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d81629.65146713358!2d3.967239!3d50.255955!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c2684947068943%3A0xd4975ded0a213fb5!2s56%20Rue%20Ren%C3%A9%20Vicaine%2C%2059720%20Louvroil!5e0!3m2!1sfr!2sfr!4v1671018218496!5m2!1sfr!2sfr" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 
-<div class="form-container">
-    
+    <div class="contact_content"> 
+<div class="contact_icon">
+<h5> Télephone</h5>
+<i class="fa-solid fa-phone"></i> 03 27 64 59 71 </div>
+
+
+<div class="contact_icon">
+<h5> E-Mail</h5>
+<i class="fa-solid fa-envelope"></i> autocrash@orange.fr</div>
+
+<div class="contact_icon">
+<h5> Adresse</h5>
+<i class="fa-regular fa-map"></i> 41 rue rené vicaine, Louvroil France</div>
+</div>
+
+
+<div class="form-container-contact">
+
   <form method="post">
 
-  <h3> Nous contacter</h3>
+<h3><span>Nous contacter</span></h3>
 
+<div class="title"> Informations <span>*</span></div>
+    <div class="form-contact"> 
+           <div class="form-div">
+             <label for="nom">Nom:</label> 
+             <div></div>
+              <input type="text" name="nom" value="<?php if(isset($nom)){echo $nom;}?>" class="box">
+              <div class="erreur"><?php if(isset($erreur_nom)){echo $erreur_nom;}?></div>
+         </div>
 
-
-        <label for="nom">Nom:</label>
-        <div class="erreur"><?php if(isset($erreur_nom)){echo $erreur_nom;}?></div>
-        <input type="text" name="nom" value="<?php if(isset($nom)){echo $nom;}?>" class="box"> 
-
+         <div class="form-div">
         <label for="prenom">prenom:</label>
-        <div class="erreur"><?php if(isset($erreur_prenom)){echo $erreur_prenom;}?></div>
+        <div></div>
         <input type="text" name="prenom" value="<?php if(isset($prenom)){echo $prenom;}?>" class="box"> 
+        <div class="erreur"><?php if(isset($erreur_prenom)){echo $erreur_prenom;}?></div>
+          </div>
+        </div>
+         
+
+        <div class="title"> Contact <span>*</span></div>
+
+        <div class="form-contact">
+          <div class="form-div">
 
         <label for="tel">Téléphone:</label>
+        <div></div>
+        <input type="text" name="telephone" value="<?php if(isset($telephone)){echo $telephone;}?>"  class="box">
         <div class="erreur"><?php if(isset($erreur_tel )){echo $erreur_tel ;}?></div>
-        <input type="text" name="telephone" value="<?php if(isset($telephone)){echo $telephone;}?>"  class="box" pattern="^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$">
+        </div>
 
+        <div class="form-div">
         <label for="email">Mail:</label>
-        <div class="erreur"><?php if(isset($erreur_mail)){echo $erreur_mail;}?></div>
-        <input type="email" name="email" value="<?php if(isset($email)){echo $email;}?>"  class="box"> 
+        <div></div>
+        <input type="email" name="email" value="<?php if(isset($email)){echo $email;}?>"  class="box">
+        <div class="erreur"><?php if(isset($erreur_mail)){echo $erreur_mail;}?></div> 
+        </div>
+</div>
 
-         
-        <label for="messages">Message:</label>
-        <div class="erreur"><?php if(isset($erreur_commentaire)){echo $erreur_commentaire;}?></div>
+         <div class="title"> Message <span>*</span></div>
+        <label for="messages">Votre message:</label>
+        <div></div>
         <textarea name="commentaire" value="<?php if(isset($commentaire)){echo $commentaire;}?>"  class="box"> </textarea>
-        <div class="bttn">
-        <button type="submit" name="contacter" class="btn">Nous Contacter</button>
+        <div class="erreur"><?php if(isset($erreur_commentaire)){echo $erreur_commentaire;}?></div>
+        </div>
+
+        <div class="btn_contact">
+        <button type="submit" name="contacter" class="btn-contact">Nous Contacter</button>
         </div>
 </form>
 </div>

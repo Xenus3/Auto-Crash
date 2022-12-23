@@ -241,42 +241,77 @@ if(!empty($_POST)){
 
 <?php include_once('logo.php'); include_once('menu.php'); ?>
 
-    <div class="form-container" >
-
+<div class="title"> Demande de devis <div class="title-nav">vous-êtes ici : <a href="index.php" class="nav-link">Acceuil</a>/ <span>Devis</span></div></div>
+<br />
+    <div class="form-container-contact" >
         <form action="" method="post" id="devis">
 
-            <h3>Demande de Devis</h3>
+            <h3><span>Demande de Devis</span></h3>
 
+            <div class="title"> Informations <span>*</span></div>
+
+
+            <div class="form-contact"> 
+            <div class="form-div">
             <label for="nom">Nom:</label>
-            <div class="erreur"><?php if(isset($erreur_nom)){echo $erreur_nom;}?></div>
+            <div></div>
             <input type="text" name="nom" class="box" value="<?php if(isset($nom)){echo $nom;} ?>">
+            </div>
 
+            <div class="form-div">
             <label for="prenom">Prenom:</label>
-            <div class="erreur"><?php if(isset($erreur_prenom)){echo $erreur_prenom;}?></div>
+            <div></div>
             <input type="text" name="prenom" class="box" value="<?php if(isset($prenom)){echo $prenom;} ?>">
+            </div>
+            </div>
 
-            <label for="elephone">Telephone:</label>
-            <div class="erreur"><?php if(isset($erreur_tel )){echo $erreur_tel ;}?></div>
-            <input type="text" name="telephone" class="box" value="<?php if(isset($telephone)){echo $telephone;} ?>" pattern="^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$">
-
-            <label for="email">Email:</label>
-            <div class="erreur"><?php if(isset($erreur_mail)){echo $erreur_mail;}?></div>
-            <input type="text" name="email" class="box" value="<?php if(isset($email)){echo $email;} ?>">
-            
-            <label for="confemail">Confirmez Email:</label>
-            <input type="text" name="confemail" class="box" value="<?php if(isset($confemail)){echo $confemail;} ?>">
-
+            <div class="form-div">
             <label for="matricule">Matricule:</label>
             <div class="erreur"><?php if(isset($erreur_matricule)){echo $erreur_matricule;}?></div>
             <input type="text" name="matricule" class="box" value="<?php if(isset($matricule)){echo $matricule;} ?>">
-
-            <label for="commentaire">Commentaire:</label>
-            <textarea type="textarea" rows="10" name="commentaire" class="box" wrap><?php if(isset($commentaire)){echo $commentaire;} ?></textarea>
-
-            <div class="bttn">
-            <input type="submit" name="devis" value="Soumettre Demande" class="btn">
             </div>
 
+
+
+
+            <div class="title"> Contact <span>*</span></div>
+            <div class="form-contact"> 
+            <div class="form-div">
+            <label for="elephone">Telephone:</label>
+            <div></div>
+            <input type="text" name="telephone" class="box" value="<?php if(isset($telephone)){echo $telephone;} ?>"> </div>
+
+            <div class="form-div">
+            <label for="email">Email:</label>
+            <div></div>
+            <input type="text" name="email" class="box" value="<?php if(isset($email)){echo $email;} ?>">
+            </div>
+            </div>
+
+            <div class="form-div">
+            <label for="confemail">Confirmez Email:</label>
+            <div></div>
+            <input type="text" name="confemail" class="box" value="<?php if(isset($confemail)){echo $confemail;} ?>"></div><br /><br />
+
+
+            <div class="title"> Messages et Prestation <span>*</span></div>
+            <label for="commentaire">Commentaire:</label>
+            <div></div>
+            <textarea type="textarea" rows="10" name="commentaire" class="box" wrap><?php if(isset($commentaire)){echo $commentaire;} ?></textarea>
+            <div class="bttn">
+            <label for="prestation">Prestation concerneé:</label>
+            <select id="prestation" name="prestation" class="box" required>
+            <option value="" selected disabled>--Vueillez choisir une option--</option>
+            <option value="reparation">Reparation</option>
+            <option value="depannage">Depanage</option>
+            <option value="casse">Casse</option>
+            </select>
+            </div>
+
+            
+            <div class="btn_contact">
+            <input type="submit" name="devis" value="Soumettre Demande" class="btn-contact">
+            </div>
         </form>
         <div class="erreur" > <?php if(isset($message_erreur)) {echo $message_erreur;}  ?></div>
     </div>
