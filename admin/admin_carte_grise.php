@@ -56,10 +56,11 @@ if(isset($_GET['id']) && $_GET['action'] === "telecharge") {
     unlink($zip_file_name);
 }
 
-if(isset($_POST['nom']) or isset($_POST['prenom']) or isset($_POST['date']) or isset($_POST['prestation'])) { 
+if(isset($_POST['nom']) or isset($_POST['prenom']) or isset($_POST['date']) or isset($_POST['prestation']) or isset($_POST['matricule'])) { 
 
     $nom = secure($_POST['nom']);
     $prenom = secure($_POST['prenom']);
+    $matricule = secure($_POST['matricule']);
     $date= secure($_POST['date']);
     $prestation= secure($_POST['prestation']);
     
@@ -70,6 +71,9 @@ if(isset($_POST['nom']) or isset($_POST['prenom']) or isset($_POST['date']) or i
      }
      if(!empty($prenom)) {
        $conditions[] = 'prenom like "%'.$prenom.'%"';
+     }
+     if(!empty($matricule)) {
+       $conditions[] = 'matricule like "%'.$matricule.'%"';
      }
      if(!empty($date)) {
          $conditions[] = 'date_demande like "%'.$date.'%"';
@@ -107,9 +111,10 @@ include_once('../logo.php');
 include_once('../admin/admin_menu.php');
 ?>
     <form action="" method="post">
-        <h3>Filtrez votre recherche par</h3>
+        <h3>Affiner votre recherche:</h3>
         <input type="text" name="nom" placeholder="Par Nom">
         <input type="text" name="prenom" placeholder="Par Prenom">
+        <input type="text" name="matricule" placeholder="Par Matricule">
         <label for="date">Date de la demande:</label>
         <input type="date" name="date" placeholder="Par Date">
         <label for="prestation">Prestation demandeé:</label>
@@ -131,11 +136,12 @@ include_once('../admin/admin_menu.php');
                 <th>Nom</th>
                 <th>Prenom</th>
                 <th>Date de la demande</th>
+                <th>Matricule</th>
                 <th>Type de prestation</th>
                 <th></th>
                 <th></th>
             </tr>
-            <?php foreach($resultat as $donnee){ if($donnee['status'] === 0 && in_array($donnee['id_type_prestation'], [7, 8, 9, 10])) {echo "<tr><td>{$donnee['nom']}</td><td>{$donnee['prenom']}</td><td>{$donnee['date_demande']}</td><td>{$donnee['description']}</td><td><a href='admin_carte_grise.php?id={$donnee["id_demande_prestation"]}&action=traite'>demande traité</a></td><td><a href='admin_carte_grise.php?id={$donnee["id_demande_prestation"]}&action=telecharge'>telecharger fichiers annexe</a></td></tr>";}} ?>
+            <?php foreach($resultat as $donnee){ if($donnee['status'] === 0 && in_array($donnee['id_type_prestation'], [7, 8, 9, 10])) {echo "<tr><td>{$donnee['nom']}</td><td>{$donnee['prenom']}</td><td>{$donnee['date_demande']}</td><td>{$donnee['matricule']}</td><td>{$donnee['description']}</td><td><a href='admin_carte_grise.php?id={$donnee["id_demande_prestation"]}&action=traite'>demande traité</a></td><td><a href='admin_carte_grise.php?id={$donnee["id_demande_prestation"]}&action=telecharge'>telecharger fichiers annexe</a></td></tr>";}} ?>
         </table>
            
         

@@ -80,7 +80,10 @@ include_once('../admin/admin_menu.php');?>
     
 </div>
 
-
+<div class="calendrier">
+  <h1>Calendrier</h1>
+  <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&bgcolor=%23ffffff&ctz=Europe%2FParis&src=Zjg0ZGQ0ZTZmNDViNjAwMTc5ZGFhZjFkZjcxOTZkMTg3Mzc2OGM0NzE4MTBiYzdlMDYwYjE5ODYwYjY4MzliOEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&src=ZW4uZnJlbmNoI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&color=%23D81B60&color=%23F6BF26" style="border:solid 1px #777" width="100%" height="600" frameborder="0" scrolling="no"></iframe>
+</div>
     
 </body>
 </html>

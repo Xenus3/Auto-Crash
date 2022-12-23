@@ -71,7 +71,7 @@ include_once('../logo.php');
 include_once('../admin/admin_menu.php');
 ?>
     <form action="" method="post">
-        <h3>Filtrez votre recherche par</h3>
+        <h3>Affiner votre recherche:</h3>
         <input type="text" name="nom" placeholder="Par Nom">
         <input type="text" name="prenom" placeholder="Par Prenom">
         <input type="date" name="date" placeholder="Par Date">

@@ -148,7 +148,8 @@ if(!empty($_POST)){
 
         $mail = $mail->fetch();
 
-        $mail_to = $mail['email'];
+        $mail_to_user = $mail['email'];
+        $mail_to_admin = "acefofo@yahoo.com"; 
 
         // Création du header de l'e-mail.
 
@@ -162,26 +163,35 @@ if(!empty($_POST)){
 
         switch($prestation){
             case 4 :
-                $prestation = "Decalamainage pour 30 min";
+                $prestation = "Decalaminage pour 30 min";
                 break;
             case 5 :
-                $prestation = "Decalamainage pour 60 min";
+                $prestation = "Decalaminage pour 60 min";
                 break;
             case 6 :
-                $prestation = "Decalamainage pour 90 min";
+                $prestation = "Decalaminage pour 90 min";
                 break;
             
 
         }
 
-        $contenu = "
+        $contenu_user = "
         <p>Bonjour $prenom $nom</p>
       
-        <p>Votre demande a bien été prise en compte et nous allons la traiter dans les meilleurs delais</p>
+        <p>Votre demande de rebdez-vous pour decalaminage a bien été prise en compte et nous allons la traiter dans les meilleurs delais</p>
         
         <p>Cordialement</p>";
+
+        $contenu_admin = "
+        <p> Vous avez reçu une demande de la part de:</p>
+        <p><strong>Nom :</strong> $nom</p>
+        <p><strong>Prenom :</strong> $prenom</p>
+        <p><strong>Téléphone :</strong> $telephone</p>
+        <p><strong>Email :</strong> $email</p>
+        <p><strong>Prestation:</strong> $prestation</p>";
         			
-        mail($mail_to, "Demande Rendez-vous pour Decalamainage", $contenu, $header);
+        mail($mail_to_user, "Votre Demande de Rendez-vous pour Decalamainage", $contenu_user, $header);
+        mail($mail_to_admin, "Nouvelle Demande de Rendez-vous pour Decalamainage", $contenu_admin, $header);
 
         header('location: index.php');
         exit;

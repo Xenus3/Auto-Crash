@@ -12,18 +12,19 @@ if(!empty($_POST)){
 
         // fonction pour securiser les zones de saisie
 
-       function secure($donnees){
+       function securiser($donnees){
         $donnees = trim($donnees);
         $donnees = stripslashes($donnees);
         $donnees = htmlspecialchars($donnees);
         return $donnees;
     }
 
-        $nom = secure($nom);
-        $prenom = secure($prenom);
-        $telephone = secure($telephone);
-        $email = secure($email);
-        $prestation = secure($prestation);
+        $nom = securiser($nom);
+        $prenom = securiser($prenom);
+        $telephone = securiser($telephone);
+        $email = securiser($email);
+        $matricule = securiser($matricule);
+        $prestation = securiser($prestation);
 
 // telechargement des fichiers
 
@@ -77,12 +78,12 @@ if(!empty($_POST)){
         elseif(grapheme_strlen($nom)<3){ // graphem_strLen permet de reduire les emot ou caractères spéciaux à 1
 
             $valide = false;
-            $message_erreur = "le nom doit faire au moins 2 caractères";
+            $message_erreur = "Le nom doit faire au moins 2 caractères";
 
         }
            elseif(grapheme_strlen($nom)>=30){ 
             $valide = false;
-            $message_erreur = "ce nom doit faire au plus de 31 caractères (" . grapheme_strlen($nom) . "/30)";
+            $message_erreur = "Le nom doit faire au plus de 31 caractères";
 
         }
         
@@ -90,17 +91,17 @@ if(!empty($_POST)){
         
         if(empty($prenom)){
             $valide = false;
-            $message_erreur= "Veuillez entrer votre prénom";
+            $message_erreur= "Le champ du prenom ne peut pas etre vide!";
         }
             elseif(grapheme_strlen($prenom)<3){
             $valide = false;
-            $message_erreur= "ce nom doit faire plus de 2 caractères";
+            $message_erreur= " Le prenom doit faire plus de 2 caractères";
 
         }
 
             elseif(grapheme_strlen($prenom)>30){
             $valide = false;
-            $message_erreur= "ce nom doit faire moins de 31 caractères (" . grapheme_strlen($prenom) . "/30)";
+            $message_erreur= "Le prenom doit faire moins de 31 caractères";
 
         }
 
@@ -114,7 +115,7 @@ if(!empty($_POST)){
         
         elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)){
             $valide = false;
-            $erreur_tel = "Votre adresse email est invalide";
+            $erreur_tel = "Votre adresse mail est invalide";
 
         }
 
@@ -122,15 +123,23 @@ if(!empty($_POST)){
 
         if(empty($email)){
             $valide = false;
-            $message_erreur = "Le champ adresse email ne peut etre vide";
+            $message_erreur = "Le champ adresse email ne peut etre vide!";
 
         }
         
         elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)){
             $valide = false;
-            $message_erreur = "Votre Adresse email est invalide";
+            $message_erreur = "Votre adresse mail est invalide";
 
         }
+
+        // verifications du matricule
+
+        if(empty($matricule)){
+            $valide = false;
+            $erreur_matricule = "Le champ du matricule ne peut pas etre vide!";
+        } 
+       
 
        
         // si les verifications on reussi
@@ -151,11 +160,11 @@ if(!empty($_POST)){
                 
                 
 
-                //on cree une demande dand notre tableau demandes_devis
+                //on cree une demande dans notre tableau demandes_devis
 
-                $requete = $DB->prepare('INSERT INTO demandes_prestations(date_demande, status, id_type_prestation, id_utilisateur, fichiers_annexe) VALUES (?, ?, ?, ?, ?)'); 
+                $requete = $DB->prepare('INSERT INTO demandes_prestations(date_demande, matricule, status, id_type_prestation, id_utilisateur, fichiers_annexe) VALUES (?, ?, ?, ?, ?, ?)'); 
 
-                $requete->execute(array($date, $status, $prestation, $utilisateur, $chemin_fichier ));
+                $requete->execute(array($date, $matricule, $status, $prestation, $utilisateur, $chemin_fichier ));
 
             }else{
 
@@ -180,9 +189,9 @@ if(!empty($_POST)){
                     
                     // creer la demande de devis
 
-                    $requete = $DB->prepare('INSERT INTO demandes_prestations(date_demande, status, id_type_prestation, id_utilisateur, fichiers_annexe) VALUES (?, ?, ?, ?, ?)'); 
+                    $requete = $DB->prepare('INSERT INTO demandes_prestations(date_demande, matricule, status, id_type_prestation, id_utilisateur, fichiers_annexe) VALUES (?, ?, ?, ?, ?, ?)'); 
 
-                    $requete->execute(array($date, $status, $prestation, $utilisateur, $chemin_fichier));
+                    $requete->execute(array($date, $matricule, $status, $prestation, $utilisateur, $chemin_fichier ));
 
                 }
             }
@@ -194,9 +203,9 @@ if(!empty($_POST)){
 
         $mail = $mail->fetch();
 
-        $mail_to = $mail['email'];
-        $mail_admin = "acefofo@yahoo.com";
-
+        $mail_to_user = $mail['email'];
+        $mail_to_admin = "acefofo@yahoo.com"; 
+        
         // Création du header de l'e-mail.
 
         $header = "From: acefofo9@gmail.com\n";
@@ -223,24 +232,25 @@ if(!empty($_POST)){
 
         }
 
-        $contenu_utilisateur = "
+        $contenu_user = "
         <p>Bonjour $prenom $nom</p>
       
-        <p>Votre demande a bien été prise en compte et nous allons la traiter dans les meilleurs delais</p>
+        <p>Votre demande de carte a bien été prise en compte et nous allons la traiter dans les meilleurs delais</p>
         
         <p>Cordialement</p>";
 
         $contenu_admin = "
-        <p> Vous avez reçu une demande de $prestation de la part de:</p>
+        <p> Vous avez reçu une demande de la part de:</p>
         <p><strong>Nom :</strong> $nom</p>
         <p><strong>Prenom :</strong> $prenom</p>
         <p><strong>Téléphone :</strong> $telephone</p>
-        <p><strong>Email :</strong> $email</p>";
+        <p><strong>Email :</strong> $email</p>
+        <p><strong>Prestation:</strong> $prestation </p>";
 
         // envoit des mails
         			
-        mail($mail_to, "Votre Demande de Carte Grise", $contenu_utilisateur , $header);
-        mail($mail_admin, "Demande de Carte Grise", $contenu_admin, $header);
+        mail($mail_to_user, "Votre Demande de Carte Grise", $contenu_user , $header);
+        mail($mail_to_admin, "Demande de Carte Grise", $contenu_admin, $header);
 
         header('location: index.php');
         exit;
@@ -309,6 +319,10 @@ include_once('menu.php');
         <label for="email">Mail:</label>
         <div class="erreur"><?php if(isset($erreur_mail)){echo $erreur_mail;}?></div>
         <input type="email" name="email" value="<?php if(isset($email)){echo $email;}?>"  class="box">
+
+        <label for="matricule">Matricule:</label>
+            <div class="erreur"><?php if(isset($erreur_matricule)){echo $erreur_matricule;}?></div>
+            <input type="text" name="matricule" class="box" value="<?php if(isset($matricule)){echo $matricule;} ?>">
         
         <div class="bttn">
         <label for="prestations">Veuillez choisir votre prestation:</label>

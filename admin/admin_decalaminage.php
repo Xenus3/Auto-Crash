@@ -69,7 +69,7 @@ include_once('../admin/admin_menu.php');
 ?>
 
     <form action="" method="post">
-        <h3>Filtrez votre recherche par</h3>
+        <h3>Affiner votre recherche:</h3>
         <input type="text" name="nom" placeholder="Par Nom">
         <input type="text" name="prenom" placeholder="Par Prenom">
         <label for="date">Date de la demande:</label>
@@ -99,7 +99,7 @@ include_once('../admin/admin_menu.php');
                 <th></th>
                 <th></th>
             </tr>
-            <?php foreach($resultat as $donnee){ if($donnee['status'] === 0 && in_array($donnee['id_type_prestation'], [4, 5, 6])) {echo "<tr><td>{$donnee['nom']}</td><td>{$donnee['prenom']}</td><td>{$donnee['date_demande']}</td><td>{$donnee['date_souhaitee']}</td><td>{$donnee['heure_souhaitee']}</td><td>{$donnee['description']}</td><td><a href='decalaminage.php?id={$donnee["id_demande_prestation"]}&action=traite'>demande traité</a></td><td><a href='decalaminage.php?id={$donnee["id_demande_prestation"]}&action=paiement'>Paiement effectué</a></td></tr>";}} ?>
+            <?php foreach($resultat as $donnee){ if($donnee['status'] === 0 && in_array($donnee['id_type_prestation'], [4, 5, 6])) {echo "<tr><td>{$donnee['nom']}</td><td>{$donnee['prenom']}</td><td>{$donnee['date_demande']}</td><td>{$donnee['date_souhaitee']}</td><td>{$donnee['heure_souhaitee']}</td><td>{$donnee['description']}</td><td><a href='admin_decalaminage.php?id={$donnee["id_demande_prestation"]}&action=traite'>demande traité</a></td></tr>";}} ?>
         </table>
            
         

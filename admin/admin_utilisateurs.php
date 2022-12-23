@@ -65,7 +65,7 @@ include_once('admin_menu.php');
 ?>
 <h1>Liste des utilisateurs</h1>
     <form action="" method="post">
-        <h3>Filtrez votre recherche par</h3>
+        <h3>Affiner votre recherche:</h3>
         <input type="text" name="nom" placeholder="Par Nom">
         <input type="text" name="prenom" placeholder="Par Prenom">
         <input type="text" name="email" placeholder="Par Email">

@@ -13,18 +13,18 @@ if(!empty($_POST)){
 
         // fonction pour securiser les zones de saisie
 
-       function secure($donnees){
+       function securiser($donnees){
         $donnees = trim($donnees);
         $donnees = stripslashes($donnees);
         $donnees = htmlspecialchars($donnees);
         return $donnees;
     }
 
-        $nom = secure($nom);
-        $prenom = secure($prenom);
-        $telephone = secure($telephone);
-        $email = secure($email);
-        $commentaire = secure($commentaire);
+        $nom = securiser($nom);
+        $prenom = securiser($prenom);
+        $telephone = securiser($telephone);
+        $email = securiser($email);
+        $commentaire = securiser($commentaire);
         
 
         // verifications du nom
@@ -99,9 +99,9 @@ if(!empty($_POST)){
             $erreur_commentaire = "Le commentaire doit faire au moins 30 caractères";
 
         }
-           elseif(grapheme_strlen($commentaire)>=500){ 
+           elseif(grapheme_strlen($commentaire)>=300){ 
             $valide = false;
-            $erreur_commentaire = "Le commentaire doit faire au plus 500 caractères";
+            $erreur_commentaire = "Le commentaire doit faire au plus 300 caractères";
 
         }
 
@@ -163,8 +163,8 @@ if(!empty($_POST)){
 
  $mail = $mail->fetch();
 
- $mail_to = $mail['email'];
-
+ $mail_to_user = $mail['email'];
+ $mail_to_admin = "acefofo@yahoo.com";           
  // Création du header de l'e-mail.
 
  $header = "From: acefofo9@gmail.com\n";
@@ -175,21 +175,24 @@ if(!empty($_POST)){
 
  //Ajout du message au format HTML 
 
- $contenu = "
+ $contenu_user = "<p>Bonjour $prenom $nom</p>
+      
+ <p>Votre demande de contact a bien été prise en compte et nous allons la traiter dans les meilleurs delais</p>
+ 
+ <p>Cordialement</p>";
+
+ $contenu_admin = "
  <p> Vous avez reçu un message de <strong>".$email."</strong></p>
  <p><strong>Nom :</strong> ".$nom."</p>
  <p><strong>Prenom :</strong> ".$prenom."</p>
  <p><strong>Téléphone :</strong> ".$telephone."</p>
  <p><strong>Message :</strong> ".$commentaire."</p>";
              
- $contacter = mail($mail_to, "Demande de contact", $contenu, $header);
+ mail($mail_to_admin, "Nouvelle Demande de Contact", $contenu_admin, $header);
 
- if($contacter){
-    $_SESSION['succes_message'] = "message envoyé";
+ mail($mail_to_user, "Votre Demande de Ccontact", $contenu_user, $header);
 
-}else{
-    $message_erreur = "message non envoyé";
-}
+ 
 
  header('location: index.php');
  exit;
