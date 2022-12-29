@@ -33,7 +33,7 @@ include_once('menu.php');
 <div class="content-q">
 
     <h1><span> Questions Recurrentes </span></h1>
-<h3>Ici vous trouverez une liste des questions recurrentes si votre question ne figure pas dans la liste veuillez utilisez la forme de <b><a href="http://localhost/php/auto-crash/contact.php" target="_blank">contact</a></b>, nous allons vous repondre dans les meilleurs delais:</h3>
+<h3>Ici vous trouverez une liste des questions recurrentes, si votre question ne figure pas dans la liste veuillez utilisez la forme de <b><a href="http://localhost/php/auto-crash/contact.php" target="_blank">contact</a></b>, nous allons vous repondre dans les meilleurs delais:</h3>
 
 <p class="question_1 clickable" ><i class="fa-solid fa-chevron-right"></i>Comment transformer vos documents en fichiers PDF?</p>
 <div class="reponse_1 hidden">

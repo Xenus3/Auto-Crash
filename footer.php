@@ -3,17 +3,15 @@
 <section class="box-container">
 <div class="box">
     <h3> liens Rapides</h3>
-    <a href="home.php"><i class="fas fa-angle-right"></i> Accueil </a>
-    <a href="about.php"><i class="fas fa-angle-right"></i> A propos </a>
+    <a href="index.php"><i class="fas fa-angle-right"></i> Accueil </a>
+    <a href="questions_recurrentes.php"><i class="fas fa-angle-right"></i> Questions Recurrentes </a>
     <a href="contact.php"><i class="fas fa-angle-right"></i> Contact </a>
+    <a href="inscription.php"><i class="fas fa-angle-right"></i> S'enregistrer</a>
 </div>
 
 <div class="box">
-    <h3>les liens extern</h3>
-    <a href="orders.php"><i class="fas fa-angle-right"></i> Commande </a>
-    <a href="cart.php"><i class="fas fa-angle-right"></i> Panier </a>
-    <a href="wishlist.php"><i class="fas fa-angle-right"></i> Wishlist </a>
-    <a href="login.php"><i class="fas fa-angle-right"></i> S'enregistrer</a>
+    <h3> Reseaux Sociaux </h3>
+    <a href="https://www.facebook.com/garageautocrash/"><i class="fab fa-facebook"></i> facebook </a>
 </div>
 
 <div class="box">
@@ -24,21 +22,14 @@
 </div>
 
 <div class="box">
-    <h3> Suivez nous </h3>
-    <a href="https://www.facebook.com/garageautocrash/"><i class="fab fa-facebook"></i> facebook </a>
-
-
-
-
-<div class="box">
     <h3> Nos Hotaires </h3>
 <div><i class="fas fa-angle-right"> </i>lundi au vendredi: 09:00 - 12:00 - 13:30 - 18:00 </div>
 <i class="fas fa-angle-right"> </i>samedi et dimanche:Fermé 
 </div>
-</div>
+
 
 </section>
 
-<div class="credit"> &copy; copyright @ <?= date('Y'); ?> by <span>Haussy Salome</span> | tous droits réservés</div>
-
 </footer>
+
+</footer>	

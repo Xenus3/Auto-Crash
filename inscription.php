@@ -67,20 +67,20 @@ if(!empty($_POST)){
 
         if(empty($email)){
             $valid = false;
-            $err_email = "Veuillez entrer une adresse e-mail";
+            $err_email = "Le champ adresse mail ne peut pas etre vide!";
 
         }
         
         elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)){
             $valid = false;
-            $err_email = "Adresse e-mail invalide";
+            $err_email = "L'adresse mail que vous avez saisie est invalide";
 
         }
 
         elseif($email<>$confemail){
 
             $valid = false;
-            $err_email = "l'adresse email est différente ";
+            $err_email = "l'adresse mail est différente de sa confirmation";
         
         
         }else
@@ -91,7 +91,7 @@ if(!empty($_POST)){
 
             if(isset($req['id_utilisateur'])){
                 $valid = false;
-                $err_email = "l'adresse e-mail des déjà prise";
+                $err_email = "L'adresse mail que vous avez sasie est deja lieé a un compte";
             }
             
         }
@@ -114,10 +114,10 @@ if(!empty($_POST)){
 
         if($valid){
         
-        //$crypt_pass = crypt($pass, '$6$rounds=5000$9-DJf7+2;J6v+AujJdIPBKAg=cPd|l[>6D[sTwFy/;;qCfL4Lm+*4W)C++2Nq0,-$'); // crypter le mot de passe en PHP 
+        
         $crypt_pass = password_hash($pass, PASSWORD_ARGON2ID);
         $token = bin2hex(random_bytes(12));
-        $role = 1;
+        $role = 3;
         $req = $DB->prepare("INSERT INTO utilisateurs( nom, prenom, telephone, email, mail_token, mot_de_passe, id_role)
         VALUES (?, ?, ?, ?, ?, ?, ?)");
 
@@ -146,10 +146,10 @@ if(!empty($_POST)){
         mail($mail_to, 'Confirmation de votre compte', $contenu, $header);
 
 
-        exit;
+        
 
         header('location: inscription.php');
-
+        exit;
 
         } else {
             // rien (affichage des messages d'erreurs)
@@ -213,11 +213,9 @@ if(isset($_POST['connexion'])){
         $req->execute(array($mail));
         $req_user = $req->fetch();
 
-        if(isset($req_user['id_utilisateur'])){
+        if(isset($req_user['id_utilisateur']) && $req_user['mail_confirmation'] != null){
 
-        /*$req = $DB->prepare("UPDATE utilisateurs
-        WHERE id_utilisateur = ?");
-        $req->execute(array($req_user['id_utilisateur']));*/
+        
 
         $_SESSION['id'] = $req_user['id_utilisateur'];
         $_SESSION['nom'] = $req_user['nom'];
@@ -246,7 +244,7 @@ if(isset($_POST['connexion'])){
 
     }else{
         $valid = false;
-        $err_mdp = "L'email ou le mot de passe sont incorrects.";
+        $err_mail = "Vous devez valider votre adresse mail en cliquant sur le lien que nous vous avons envoyé";
     }
 
 }
@@ -292,6 +290,7 @@ include_once('menu.php');?>
 
         <label for="pass">Mot de passe:</label>
         <div class="erreur"><?php if(isset($err_mdp)){echo $err_mdp;}?></div>
+        
         <input type="password" name="mdp" value="" class="box">
          
 

@@ -1,6 +1,20 @@
 <?php 
 include_once('inclure.php');
 
+if(isset($_COOKIE['souvient_toi'])) {
+
+  $requete = $DB->prepare('SELECT * from utilisateurs WHERE souvient_toi = ?');
+  $requete->execute(array($_COOKIE['souvient_toi']));
+  $requete = $requete->fetch();
+
+    if(isset($requete['id_utilisateur'])) {
+        $_SESSION['id'] = $requete['id_utilisateur'];
+        $_SESSION['nom'] = $requete['nom'];
+        $_SESSION['prenom'] = $requete['prenom'];
+        $_SESSION['email'] = $requete['email'];
+        $_SESSION['role'] = $requete['id_role'];
+    }
+}
 
 
 ?>
